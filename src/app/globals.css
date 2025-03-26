@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "droneRangerPro";
+  src: url("../../assets/fonts/dronerangerpro_black.otf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "droneRangerPro";
+  src: url("../../assets/fonts/dronerangerpro_bold.otf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Removed @theme inline block */
+
+:root {
+  --primary-color: #44d62c;
+  --danger-color: #c8323c;
+  --bg-color-1: #111;
+  --bg-color-2: #222;
+  --bg-color-3: #666;
+  --text-color: #ccc;
+  --border-color: #5d5d5d;
+  --border-color-2: #707070;
+  --radius: 0.5rem;
+}
+
+html,
+body {
+  background: rgba(0, 0, 0, 0.2);
+  font-family: "inter", sans-serif;
+  font-size: 16px;
+  user-select: none;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+h1 {
+  color: var(--primary-color);
+  font-family: "droneRangerPro", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.market-page__cover-header {
+  position: relative;
+  width: 100%;
+  height: 804px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.market-page__cover-header::before {
+  background-image: url("../../public/carousel-background.png");
+  background-size: cover;
+  background-position: center;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* FOOTER */
+.footer {
+  background-color: rgba(23, 22, 26, 1);
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subcribe-btn {
+  background: linear-gradient(91.47deg, #da458f -6%, #da34dd 113.05%);
+  border: none;
+  width: 168px;
+  height: 44px;
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px !important;
+    padding-left: 4px;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: rgba(119, 119, 119, 1);
+    border-radius: 10px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    height: 4px !important;
+    background: rgba(255, 204, 33, 1);
+    border-radius: 10px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 204, 33, 1);
+  }
+}
+
+/* styles.css */
+.spinner-wrapper {
+  background-image: url("../../public/background.png");
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: gray;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,19 @@
+/* CARD LIST */
+.card-list {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  height: fit-content;
+  max-height: 2069px;
+
+  &__view-more,
+  &__view-more:hover,
+  &__view-more:focus {
+    background: linear-gradient(
+      91.47deg,
+      #da458f -6%,
+      #da34dd 113.05%
+    ) !important;
+    border-radius: 4px;
+    border: none !important;
+  }
+}

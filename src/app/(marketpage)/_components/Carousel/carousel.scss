@@ -1,0 +1,40 @@
+.carousel {
+  &__character-name {
+    background-image: url("/Vector.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 437px;
+    height: 169px;
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+
+    span.name {
+      font-family: "droneRangerPro", sans-serif;
+      text-transform: uppercase;
+      color: white;
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 88px;
+      text-align: center;
+    }
+  }
+
+  &__character-list {
+    height: 300px;
+  }
+
+  &__banner {
+    background-image: url("/Vector 3.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
