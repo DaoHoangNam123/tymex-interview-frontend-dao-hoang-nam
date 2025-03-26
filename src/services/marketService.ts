@@ -68,41 +68,39 @@ export async function getNFTCardsWithCriteria({ criteria }: SearchProps) {
   return filteredCards;
 }
 
-export async function getNFTCardsWithSingleCriteria({ criteria }: SearchProps) {
-  const { input, tier, theme, sort, order, priceSort, priceSlider } = criteria;
+export async function getNFTCardsWithSingleCriteria(
+  params: SearchProps & {
+    type: string;
+  }
+) {
+  const criteria = params?.criteria;
+  const type = params?.type;
+  const { input, tier, theme, sort, order } = criteria;
   let url = `/products?`;
 
   if (input) {
     url = url.concat(`q=${input}`);
   }
 
-  if (tier && tier !== "All") {
-    url = url.concat(`&tier_like=${tier}`);
-    return apiService.fetchData({ url, method: "get" });
-  }
-
-  if (theme) {
-    url = url.concat(`&theme_like=${theme}`);
-    return apiService.fetchData({ url, method: "get" });
-  }
-
-  if (sort) {
-    url = url.concat(`&_sort=${sort}`);
-
-    if (order) {
-      url = url.concat(`&_order=${order}`);
+  switch (type) {
+    case "tier": {
+      url = url.concat(`&tier_like=${tier}`);
+      break;
     }
+    case "theme": {
+      url = url.concat(`&theme_like=${theme}`);
+      break;
+    }
+    case "priceSort":
+    case "time": {
+      url = url.concat(`&_sort=${sort}`);
 
-    return apiService.fetchData({ url, method: "get" });
+      if (order) {
+        url = url.concat(`&_order=${order}`);
+      }
+      break;
+    }
   }
 
-  const response = await apiService.fetchData({ url, method: "get" });
-
-  const filteredCards = filterByPrice(
-    (response as AxiosResponse).data as CardProps[],
-    priceSort,
-    priceSlider
-  );
-
-  return filteredCards;
+  return apiService.fetchData({ url, method: "get" });
 }

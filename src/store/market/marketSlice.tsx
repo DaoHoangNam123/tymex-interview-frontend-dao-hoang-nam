@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CardProps, SearchProps } from "@/type/common";
+import { CardProps, FilterCriteriaProps, SearchProps } from "@/type/common";
 import {
   getNFTCards,
   getNFTCardsWithCriteria,
@@ -8,15 +8,29 @@ import {
 
 const SLICE_NAME = "market";
 
+const defaultFilterValue = {
+  priceSlider: [0.01, 200],
+  tier: "All",
+  theme: "Halloween",
+  time: "Latest",
+  priceSort: "Low",
+  input: "",
+  sort: "",
+  order: "",
+};
+
 type MarketProps = {
   cardList: CardProps[];
   originalCardList: CardProps[];
   loading: boolean;
+  criteria: FilterCriteriaProps;
 };
+
 const initialState: MarketProps = {
   cardList: [],
   originalCardList: [],
   loading: true,
+  criteria: defaultFilterValue,
 };
 
 export const getCards = createAsyncThunk<CardProps[]>(
@@ -42,13 +56,13 @@ export const searchWithMultiCriteria = createAsyncThunk<
 
 export const searchWithSingleCriteria = createAsyncThunk<
   CardProps[],
-  SearchProps
+  SearchProps & { type: string }
 >(
   SLICE_NAME + "/searchNFTCardsWithCriteria",
-  async (params: SearchProps): Promise<CardProps[]> => {
+  async (params): Promise<CardProps[]> => {
     const response = await getNFTCardsWithSingleCriteria(params);
 
-    return response as CardProps[];
+    return response.data as CardProps[];
   }
 );
 
@@ -65,15 +79,9 @@ export const marketSlice = createSlice({
 
       state.cardList = newCardList;
     },
-    sortPrice: (state, action) => {
+    saveCriteria: (state, action) => {
       const sortCriteria = action.payload;
-
-      let newCardList = [...state.cardList];
-      newCardList = newCardList.sort(
-        (a, b) => sortCriteria * (b.price - a.price)
-      );
-
-      state.cardList = newCardList;
+      state.criteria = sortCriteria;
     },
     sortCategory: (state, action) => {
       const category = action.payload;
@@ -110,5 +118,5 @@ export const marketSlice = createSlice({
       });
   },
 });
-export const { filterPrice, sortPrice, sortCategory } = marketSlice.actions;
+export const { filterPrice, sortCategory, saveCriteria } = marketSlice.actions;
 export default marketSlice.reducer;

@@ -1,22 +1,14 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Input, Slider, Select, Button, InputRef } from "antd";
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { debounce, omit } from "lodash";
 import useSidebarController from "../../hooks/useSidebarController";
+import { useAppSelector } from "@/src/store/hooks";
 import "./sidebar.scss";
 
 const { Option } = Select;
-
-const defaultFilterValue = {
-  priceSlider: [0.01, 200],
-  tier: "All",
-  theme: "Halloween",
-  time: "Latest",
-  priceSort: "Low",
-  input: "",
-};
 
 const Sidebar = () => {
   const {
@@ -24,14 +16,25 @@ const Sidebar = () => {
     handleChangeSidebar,
     handleResetFilter,
     handleClickSearchButton,
-    searchCriteria,
-  } = useSidebarController(defaultFilterValue);
+    handleChangeSlider,
+  } = useSidebarController();
   const inputRef = useRef<InputRef>(null);
+  const criteria = useAppSelector((state) => state.market.criteria);
+  const [initValue, setInitValue] = useState({
+    priceSlider: [0.01, 200],
+    tier: "All",
+    theme: "Halloween",
+    time: "Latest",
+    priceSort: "Low",
+    sort: "",
+    order: "",
+  });
+
   const isDisableSearchButton = useMemo(() => {
-    return Object.values(omit(searchCriteria, "priceSlider")).every(
+    return Object.values(omit(criteria, "priceSlider")).every(
       (field) => !field
     );
-  }, [searchCriteria]);
+  }, [criteria]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -49,7 +52,9 @@ const Sidebar = () => {
           <SearchOutlined className="search-icon" placeholder="Quick search" />
         }
         className="searchInput"
-        onChange={debounce((e) => handleChange(e), 500)}
+        onChange={(e) => {
+          handleChange(e);
+        }}
         ref={inputRef}
       />
 
@@ -58,11 +63,14 @@ const Sidebar = () => {
         <p className="filter-bar-title">PRICE</p>
         <Slider
           range
-          defaultValue={defaultFilterValue.priceSlider}
+          value={initValue.priceSlider}
           min={0.01}
           max={200}
           className="slider"
-          onChange={debounce((e) => handleChangeSidebar(e, "priceSlider"), 500)}
+          onChange={(e) => {
+            setInitValue((prev) => ({ ...prev, priceSlider: e }));
+            handleChangeSlider(e, "priceSlider");
+          }}
         />
         <div className="priceLabels">
           <span>0.01 ETH</span>
@@ -74,9 +82,12 @@ const Sidebar = () => {
       <div className="dropdownSection">
         <p className="filter-bar-title">TIER</p>
         <Select
-          defaultValue={defaultFilterValue.tier}
+          value={initValue.tier}
           className="select text-white"
-          onChange={debounce((e) => handleChangeSidebar(e, "tier"), 500)}
+          onChange={(e) => {
+            setInitValue((prev) => ({ ...prev, tier: e }));
+            debounce(() => handleChangeSidebar(e, "tier"), 500)();
+          }}
         >
           <Option value="All">All</Option>
           <Option value="Basic">Basic</Option>
@@ -86,9 +97,12 @@ const Sidebar = () => {
 
         <p className="filter-bar-title">THEME</p>
         <Select
-          defaultValue={defaultFilterValue.theme}
+          value={initValue.theme}
           className="select"
-          onChange={debounce((e) => handleChangeSidebar(e, "theme"), 500)}
+          onChange={(e) => {
+            setInitValue((prev) => ({ ...prev, theme: e }));
+            handleChangeSidebar(e, "theme");
+          }}
         >
           <Option value="Halloween">Halloween</Option>
           <Option value="Light">Light</Option>
@@ -98,9 +112,12 @@ const Sidebar = () => {
 
         <p className="filter-bar-title">TIME</p>
         <Select
-          defaultValue={defaultFilterValue.time}
+          value={initValue.time}
           className="select"
-          onChange={debounce((e) => handleChangeSidebar(e, "time"), 500)}
+          onChange={(e) => {
+            setInitValue((prev) => ({ ...prev, time: e }));
+            handleChangeSidebar(e, "time");
+          }}
         >
           <Option value="Latest">Latest</Option>
           <Option value="Oldest">Oldest</Option>
@@ -108,13 +125,12 @@ const Sidebar = () => {
 
         <p className="filter-bar-title">PRICE</p>
         <Select
-          defaultValue={
-            defaultFilterValue.priceSort === "Low"
-              ? "Low to high"
-              : "High to low"
-          }
+          value={initValue.priceSort === "Low" ? "Low to high" : "High to low"}
           className="select"
-          onChange={debounce((e) => handleChangeSidebar(e, "priceSort"), 500)}
+          onChange={(e) => {
+            setInitValue((prev) => ({ ...prev, priceSort: e }));
+            handleChangeSidebar(e, "priceSort");
+          }}
         >
           <Option value="Low">Low to high</Option>
           <Option value="High">High to low</Option>
@@ -128,7 +144,19 @@ const Sidebar = () => {
             className="resetButton"
             shape="round"
             icon={<CloseOutlined className="w-4 h-4" />}
-            onClick={handleResetFilter}
+            onClick={() => {
+              const defaultValue = {
+                priceSlider: [0.01, 200],
+                tier: "All",
+                theme: "Halloween",
+                time: "Latest",
+                priceSort: "Low",
+                sort: "",
+                order: "",
+              };
+              setInitValue(defaultValue);
+              handleResetFilter(defaultValue);
+            }}
           ></Button>
           <span className="text-base">Reset Filter</span>
         </div>

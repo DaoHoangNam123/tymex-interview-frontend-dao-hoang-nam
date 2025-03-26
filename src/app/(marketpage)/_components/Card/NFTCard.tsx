@@ -44,7 +44,7 @@ export default function NFTCard({ imageList, card }: Readonly<NFTCardProps>) {
 
       <div className="content-info flex flex-col items-center justify-center pt-6 text-white">
         <div className="flex items-center justify-between w-full">
-          <h2 className="text-base font-bold overflow-hidden text-ellipsis">
+          <h2 className="text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap w-[60%] text-left">
             {title}
           </h2>
           <div className="flex items-center justify-center">
@@ -52,8 +52,8 @@ export default function NFTCard({ imageList, card }: Readonly<NFTCardProps>) {
               src="/logos_ethereum.svg"
               alt="ethereum icon"
               className="mr-1"
-              height={16}
-              width={16}
+              height={14}
+              width={14}
             />
             <span>{price} ETH</span>
           </div>

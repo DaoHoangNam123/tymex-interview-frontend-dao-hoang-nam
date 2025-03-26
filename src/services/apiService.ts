@@ -11,7 +11,7 @@ const apiService = {
           resolve(response);
         })
         .catch((errors: AxiosError) => {
-          reject(errors);
+          reject(new Error(errors.message));
         });
     });
   },

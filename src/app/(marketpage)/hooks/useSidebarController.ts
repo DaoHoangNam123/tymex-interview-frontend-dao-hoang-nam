@@ -1,50 +1,52 @@
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   filterPrice,
   searchWithMultiCriteria,
+  searchWithSingleCriteria,
   getCards,
-  sortPrice,
+  saveCriteria,
 } from "@/store/market/marketSlice";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { FilterCriteriaProps, SearchProps } from "@/type/common";
+import { debounce } from "lodash";
 
-const useSidebarController = (defaultValues: FilterCriteriaProps) => {
-  const [searchCriteria, setSearchCriteria] = useState(defaultValues);
-
+const useSidebarController = () => {
   const dispatch = useAppDispatch();
+  const criteria = useAppSelector((state) => state.market.criteria);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearchCriteria((prev) => ({
-      ...prev,
-      input: value,
-    }));
+    dispatch(saveCriteria({ ...criteria, input: value }));
     dispatch(searchWithMultiCriteria({ criteria: { input: value } }));
-  };
+  }, 500);
 
   const handleSearch = (searchCriteria: SearchProps) => {
     dispatch(searchWithMultiCriteria(searchCriteria));
   };
 
-  const handleChangeSidebar = (e: string | number[], field: string) => {
+  const handleChangeSidebar = debounce((e: string, field: string) => {
     const updatedCriteria: FilterCriteriaProps = {
-      ...searchCriteria,
+      ...criteria,
       [field]: e,
     };
 
-    if (field === "priceSlider") {
-      dispatch(filterPrice(e));
-    }
-
     if (field === "priceSort") {
       const sortType = e === "Low" ? -1 : 1;
-      dispatch(sortPrice(sortType));
+      updatedCriteria.sort = "price";
+      updatedCriteria.order = sortType > 0 ? "desc" : "asc";
+      dispatch(
+        searchWithSingleCriteria({
+          criteria: { ...criteria, [field]: e },
+          type: field,
+        })
+      );
     }
 
     if (field === "tier" || field === "theme") {
       dispatch(
-        searchWithMultiCriteria({
-          criteria: { ...searchCriteria, [field]: e },
+        searchWithSingleCriteria({
+          criteria: { ...criteria, [field]: e },
+          type: field,
         })
       );
     }
@@ -55,22 +57,25 @@ const useSidebarController = (defaultValues: FilterCriteriaProps) => {
       updatedCriteria.order = sortType > 0 ? "desc" : "asc";
 
       dispatch(
-        searchWithMultiCriteria({
+        searchWithSingleCriteria({
           criteria: updatedCriteria,
+          type: "time",
         })
       );
     }
-    setSearchCriteria((prev) => ({
-      ...prev,
-      ...updatedCriteria,
-    }));
-  };
+    dispatch(saveCriteria({ ...criteria, ...updatedCriteria }));
+  }, 500);
 
-  const handleResetFilter = () => {
-    setSearchCriteria({ ...defaultValues, input: searchCriteria?.input });
-    if (searchCriteria?.input) {
+  const handleChangeSlider = debounce((e: number[], field: string) => {
+    dispatch(filterPrice(e));
+    dispatch(saveCriteria({ ...criteria, [field]: e }));
+  }, 500);
+
+  const handleResetFilter = (defaultValue: FilterCriteriaProps) => {
+    dispatch(saveCriteria({ ...criteria, ...defaultValue }));
+    if (criteria?.input) {
       dispatch(
-        searchWithMultiCriteria({ criteria: { input: searchCriteria?.input } })
+        searchWithMultiCriteria({ criteria: { input: criteria?.input } })
       );
     } else {
       dispatch(getCards());
@@ -78,7 +83,7 @@ const useSidebarController = (defaultValues: FilterCriteriaProps) => {
   };
 
   const handleClickSearchButton = () => {
-    dispatch(searchWithMultiCriteria({ criteria: searchCriteria }));
+    dispatch(searchWithMultiCriteria({ criteria: criteria }));
   };
 
   return {
@@ -87,7 +92,7 @@ const useSidebarController = (defaultValues: FilterCriteriaProps) => {
     handleChangeSidebar,
     handleResetFilter,
     handleClickSearchButton,
-    searchCriteria,
+    handleChangeSlider,
   };
 };
 export default useSidebarController;
