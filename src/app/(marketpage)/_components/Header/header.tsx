@@ -1,39 +1,77 @@
 "use client";
 
-import React from "react";
-import { Button } from "antd";
-import NavbarMenu from "@/components/Menu/menu";
+import React, { useState } from "react";
+import { Button, Drawer, Menu, MenuProps } from "antd";
 import Icon from "@/components/Icon/icon";
 import { HEADER_MENU } from "@/src/constants/common";
+import { MenuUnfoldOutlined } from "@ant-design/icons";
 import "./header.scss";
 
-const GlobeDropdownBtn = () => {
-  return (
-    <span className="flex items-center">
-      <Icon type="globe" />
-      <Icon type="dropdown" />
-    </span>
-  );
-};
-
 const Header = () => {
+  const [open, setOpen] = useState(false);
+  const [current, setCurrent] = useState("marketplace");
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const onClick: MenuProps["onClick"] = (e) => {
+    setCurrent(e.key);
+  };
+
   return (
     <header className="header w-full text-white pt-8 pb-8 h-[84px]">
-      <main className="min-w-full mx-auto px-4 flex items-center justify-between">
-        <div className="flex flex-1 items-center justify-around">
-          <NavbarMenu
+      <main className="w-full h-[40px] flex items-center justify-between px-4">
+        <div className="hidden xl:flex flex-1 items-center justify-around">
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode={"horizontal"}
             items={HEADER_MENU}
-            default="marketplace"
-            className="nav-menu"
+            theme="dark"
+            className={
+              "nav-menu mx-auto flex items-center justify-between xl:px-4"
+            }
           />
         </div>
-        <div className="flex items-center gap-x-4 w-100">
+        <div className="xl:hidden">
+          <Button
+            icon={<MenuUnfoldOutlined />}
+            onClick={showDrawer}
+            className="nav-menu__drawer__button"
+          ></Button>
+          <Drawer
+            onClose={onClose}
+            open={open}
+            title="Menu"
+            className="nav-menu__drawer"
+          >
+            <div className="nav-menu mx-auto flex flex-col items-start justify-between text-white">
+              {HEADER_MENU.map((item) => {
+                return (
+                  <div
+                    key={item.key}
+                    className={`${current === item.key ? "selected" : ""}`}
+                  >
+                    {item.label}
+                  </div>
+                );
+              })}
+            </div>
+          </Drawer>
+        </div>
+        <div className="flex justify-between items-center gap-x-4 mr-4">
           <Button className="wallet-btn">Connect Wallet</Button>
-          <div>
+          <div className="flex justify-between items-center">
+            <Icon type="globe" />
             <Button
               className="globe-icon"
               type="default"
-              icon={<GlobeDropdownBtn />}
+              icon={<Icon type="dropdown" />}
               onClick={() => console.log("Globe icon clicked")}
             />
           </div>

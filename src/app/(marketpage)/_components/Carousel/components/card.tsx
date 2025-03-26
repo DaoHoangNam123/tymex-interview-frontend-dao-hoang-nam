@@ -3,21 +3,23 @@
 import Image from "next/image";
 import React from "react";
 
-interface AssassinCardProps {
+interface CardProps {
   name: string;
   imageSrc: string;
+  width: number;
+  height: number;
 }
 
-const BannerCard = ({ name, imageSrc }: AssassinCardProps) => {
+const BannerCard = ({ name, imageSrc, width, height }: CardProps) => {
   return (
-    <div className="relative w-50 h-56 flex flex-col items-center justify-center">
+    <div className="relative flex flex-col items-center justify-center h-full">
       {/* Character Image */}
       <Image
         src={imageSrc}
         alt={name}
-        width={200}
-        height={224}
-        className="relative object-cover"
+        width={width}
+        height={height}
+        className={`relative object-cover`}
       />
     </div>
   );

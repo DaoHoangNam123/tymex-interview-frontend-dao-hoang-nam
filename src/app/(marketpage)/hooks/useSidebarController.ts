@@ -63,12 +63,10 @@ const useSidebarController = () => {
         })
       );
     }
-    dispatch(saveCriteria({ ...criteria, ...updatedCriteria }));
   }, 500);
 
-  const handleChangeSlider = debounce((e: number[], field: string) => {
+  const handleChangeSlider = debounce((e: number[]) => {
     dispatch(filterPrice(e));
-    dispatch(saveCriteria({ ...criteria, [field]: e }));
   }, 500);
 
   const handleResetFilter = (defaultValue: FilterCriteriaProps) => {
@@ -82,8 +80,9 @@ const useSidebarController = () => {
     }
   };
 
-  const handleClickSearchButton = () => {
-    dispatch(searchWithMultiCriteria({ criteria: criteria }));
+  const handleClickSearchButton = (filterValue: FilterCriteriaProps) => {
+    dispatch(saveCriteria({ criteria: filterValue }));
+    dispatch(searchWithMultiCriteria({ criteria: filterValue }));
   };
 
   return {

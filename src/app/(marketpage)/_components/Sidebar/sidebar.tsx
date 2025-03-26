@@ -44,7 +44,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <div className="sidebar md:w-[200px] xl:w-[250px] 2xl:w-[372px]">
       {/* Quick Search */}
       <Input
         placeholder="Quick search"
@@ -69,7 +69,7 @@ const Sidebar = () => {
           className="slider"
           onChange={(e) => {
             setInitValue((prev) => ({ ...prev, priceSlider: e }));
-            handleChangeSlider(e, "priceSlider");
+            handleChangeSlider(e);
           }}
         />
         <div className="priceLabels">
@@ -163,7 +163,7 @@ const Sidebar = () => {
         <Button
           type="primary"
           className="searchButton"
-          onClick={handleClickSearchButton}
+          onClick={() => handleClickSearchButton(initValue)}
           disabled={isDisableSearchButton}
         >
           Search
