@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button, Drawer, Menu, MenuProps } from "antd";
 import Icon from "@/components/Icon/icon";
 import { HEADER_MENU } from "@/src/constants/common";
-import { MenuUnfoldOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 import "./header.scss";
 
 const Header = () => {
@@ -40,7 +40,7 @@ const Header = () => {
         </div>
         <div className="xl:hidden">
           <Button
-            icon={<MenuUnfoldOutlined />}
+            icon={<MenuOutlined />}
             onClick={showDrawer}
             className="nav-menu__drawer__button"
           ></Button>

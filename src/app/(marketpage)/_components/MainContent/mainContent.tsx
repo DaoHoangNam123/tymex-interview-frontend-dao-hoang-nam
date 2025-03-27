@@ -10,10 +10,12 @@ const CardList = lazy(() => import("../CardList/cardList"));
 
 const MainContent = () => {
   return (
-    <div className="main-content flex flex-col items-start justify-center pt-34">
-      <div className="flex items-start justify-center sm:px-10 lg:px-15 xl:px-20 2xl:px-30">
-        <Sidebar />
-        <div className="flex flex-col flex-1 w-full">
+    <div className="main-content flex flex-col items-start justify-center pt-4 sm:pt-8 md:pt-16 xl:pt-34">
+      <div className="w-full flex items-start justify-center gap-5 sm:px-10 lg:px-15 xl:px-20 2xl:px-30">
+        <div className="hidden md:flex">
+          <Sidebar />
+        </div>
+        <div className="flex flex-col flex-1 max-w-3/5">
           <CategoryBar />
           <CardList numberOfCards={25} />
         </div>

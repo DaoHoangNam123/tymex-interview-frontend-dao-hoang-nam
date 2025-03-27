@@ -1,0 +1,24 @@
+.ant-drawer-content.search__drawer {
+  background: #000 !important;
+  .ant-drawer-header-title .ant-drawer-close {
+    color: rgba(137, 136, 139, 1);
+  }
+}
+
+.search__drawer {
+  &-button {
+    background: linear-gradient(
+      91.47deg,
+      #da458f -6%,
+      #da34dd 113.05%
+    ) !important;
+    border: none !important;
+    color: white !important;
+    width: 40px !important;
+    height: 40px !important;
+
+    :hover {
+      color: white !important;
+    }
+  }
+}

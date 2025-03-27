@@ -20,6 +20,11 @@ const useSidebarController = () => {
     dispatch(searchWithMultiCriteria({ criteria: { input: value } }));
   }, 500);
 
+  const handleChangeCategory = debounce((e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(searchWithMultiCriteria({ criteria: { category: value } }));
+  }, 500);
+
   const handleSearch = (searchCriteria: SearchProps) => {
     dispatch(searchWithMultiCriteria(searchCriteria));
   };
@@ -65,9 +70,9 @@ const useSidebarController = () => {
     }
   }, 500);
 
-  const handleChangeSlider = debounce((e: number[]) => {
+  const handleChangeSlider = (e: number[]) => {
     dispatch(filterPrice(e));
-  }, 500);
+  };
 
   const handleResetFilter = (defaultValue: FilterCriteriaProps) => {
     dispatch(saveCriteria({ ...criteria, ...defaultValue }));
@@ -92,6 +97,7 @@ const useSidebarController = () => {
     handleResetFilter,
     handleClickSearchButton,
     handleChangeSlider,
+    handleChangeCategory,
   };
 };
 export default useSidebarController;

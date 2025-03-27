@@ -8,46 +8,62 @@ import useDeviceType from "@/src/hooks/useDeviceType";
 import "./carousel.scss";
 
 const Carousel = () => {
-  const { width, deviceType } = useDeviceType();
+  const { width } = useDeviceType();
+
   return (
     <div className="carousel">
-      <div className="relative flex items-center justify-center md:pt-8 xl:pt-16 px-10 z-10">
-        <div className="relative flex flex-col items-center justify-between z-10 md:w-[800px] md:h-[500-px] xl:w-[1093px] xl:h-[644px]">
-          <div className="flex flex-1 items-center justify-center">
+      <div className="relative flex items-center justify-between md:pt-8 xl:pt-16 md:px-10 xl:x-16 z-10">
+        <div className="flex flex-1 flex-col items-center justify-around xl:gap-5 z-10 h-[250px] md:h-[300px] lg:h-[400px] xl:h-[600px]">
+          <div className="flex items-center justify-center flex-1/2">
             <Image
               src={NewArrival}
               width={
-                deviceType === "desktop"
+                width > 1280
                   ? 1000
-                  : deviceType === "tablet"
-                  ? 800
-                  : 500
+                  : width > 768
+                  ? 500
+                  : width > 640
+                  ? 400
+                  : 300
               }
               height={
-                deviceType === "desktop"
-                  ? 644
-                  : deviceType === "tablet"
-                  ? 500
-                  : 400
+                width > 1280 ? 644 : width > 768 ? 300 : width > 640 ? 200 : 100
               }
               alt="carousel"
+              className="lg:min-h-auto lg:min-w-auto object-cover"
             />
           </div>
-          <div className="carousel__character-list flex items-center justify-center h-[200px] xl:h-[250px]">
-            <div className="w-full h-full px-8 flex justify-between items-center gap-16 ">
+          <div className="carousel__character-list w-full flex flex-1/2 h-1/3 items-center justify-center md:pt-3 lg:pt-5">
+            <div className="w-full h-full flex justify-center items-center gap-5 sm:px-8 lg:gap-10 xl:gap-16 2xl:gap-20">
               {CHARACTER_IMAGE.map((char) => (
                 <BannerCard
                   name={char.name}
                   imageSrc={char.img}
-                  width={500}
-                  height={324}
+                  width={
+                    width > 1280
+                      ? 200
+                      : width > 768
+                      ? 120
+                      : width > 640
+                      ? 100
+                      : 80
+                  }
+                  height={
+                    width > 1280
+                      ? 224
+                      : width > 768
+                      ? 100
+                      : width > 640
+                      ? 80
+                      : 50
+                  }
                   key={char.name}
                 />
               ))}
             </div>
           </div>
         </div>
-        <div className="carousel__character relative not-lg:hidden">
+        <div className="carousel__character w-1/3 relative not-lg:hidden">
           <Image
             src="/the-dj-character.png"
             alt="The DJ"
@@ -60,7 +76,7 @@ const Carousel = () => {
           </div>
         </div>
       </div>
-      <div className="carousel__banner h-[200px] xl:h-[250px]"></div>
+      <div className="carousel__banner h-1/3 xl:h-[250px]"></div>
     </div>
   );
 };

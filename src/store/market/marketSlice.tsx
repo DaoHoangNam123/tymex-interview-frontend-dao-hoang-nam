@@ -5,6 +5,7 @@ import {
   getNFTCardsWithCriteria,
   getNFTCardsWithSingleCriteria,
 } from "@/services/marketService";
+import { debounce } from "lodash";
 
 const SLICE_NAME = "market";
 
@@ -72,7 +73,7 @@ export const marketSlice = createSlice({
   reducers: {
     filterPrice: (state, action) => {
       const [minPrice, maxPrice] = action.payload;
-
+      console.log("heree");
       let newCardList = [...state.originalCardList];
       newCardList = newCardList.filter((item) => item.price >= minPrice);
       newCardList = newCardList.filter((item) => item.price <= maxPrice);

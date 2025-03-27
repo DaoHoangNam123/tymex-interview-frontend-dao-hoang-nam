@@ -12,14 +12,14 @@ interface CardProps {
 
 const BannerCard = ({ name, imageSrc, width, height }: CardProps) => {
   return (
-    <div className="relative flex flex-col items-center justify-center h-full">
+    <div className={`flex items-center justify-center h-full`}>
       {/* Character Image */}
       <Image
         src={imageSrc}
         alt={name}
         width={width}
         height={height}
-        className={`relative object-cover`}
+        className="min-h-auto min-w-auto object-cover"
       />
     </div>
   );

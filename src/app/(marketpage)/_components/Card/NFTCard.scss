@@ -2,12 +2,22 @@
   background: transparent;
   border: none !important;
 
-  .ant-card-body {
-    background: #2a2936;
-    padding: 16px !important;
-    height: 100%;
-    border-radius: 10px;
-    border: none;
+  &.ant-card {
+    position: relative;
+    transition: transform 0.2s !important;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-0.625em) !important;
+    }
+
+    .ant-card-body {
+      background: #2a2936;
+      padding: 16px !important;
+      height: 100%;
+      border-radius: 10px;
+      border: none;
+    }
   }
 
   .card-image {

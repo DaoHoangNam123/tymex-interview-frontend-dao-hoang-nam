@@ -17,7 +17,7 @@ const MainContent = dynamic(
 
 const MarketPage = () => {
   return (
-    <div className="min-h-full min-w-full flex flex-col">
+    <div className="h-full w-full flex flex-col">
       <div className="flex flex-col items-center justify-center text-center flex-1">
         <div className="market-page__cover-header">
           <Header />

@@ -5,6 +5,11 @@
   height: fit-content;
   max-height: 2069px;
 
+  .ant-list-item {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
   &__view-more,
   &__view-more:hover,
   &__view-more:focus {
@@ -15,5 +20,7 @@
     ) !important;
     border-radius: 4px;
     border: none !important;
+    height: 70px !important;
+    color: white !important;
   }
 }

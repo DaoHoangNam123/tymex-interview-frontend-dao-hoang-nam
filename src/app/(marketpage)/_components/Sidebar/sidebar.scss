@@ -15,6 +15,9 @@
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
 
+  &__category {
+    margin-top: 12px;
+  }
   &:hover {
     border: 1px solid #808080;
     background-color: transparent;
@@ -37,6 +40,13 @@
 
 .priceSection {
   margin-bottom: 20px;
+  p {
+    margin-bottom: 6px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: rgba(137, 136, 139, 1);
+    text-align: left;
+  }
 }
 
 .priceLabels {
@@ -81,6 +91,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  gap: 10px;
 }
 
 /* RESET BUTTON */

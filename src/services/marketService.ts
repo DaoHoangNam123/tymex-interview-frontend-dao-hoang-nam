@@ -35,7 +35,8 @@ export async function getNFTCards() {
 // Search with multiple keyword
 export async function getNFTCardsWithCriteria({ criteria }: SearchProps) {
   let url = `/products?`;
-  const { input, tier, theme, sort, order, priceSort, priceSlider } = criteria;
+  const { input, tier, theme, sort, order, priceSort, priceSlider, category } =
+    criteria;
 
   if (input) {
     url = url.concat(`q=${input}`);
@@ -47,6 +48,10 @@ export async function getNFTCardsWithCriteria({ criteria }: SearchProps) {
 
   if (theme) {
     url = url.concat(`&theme_like=${theme}`);
+  }
+
+  if (category) {
+    url = url.concat(`&category_like=${theme}`);
   }
 
   if (sort) {

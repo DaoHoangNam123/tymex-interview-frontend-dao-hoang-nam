@@ -38,6 +38,7 @@ export type FilterCriteriaProps = {
   input?: string;
   sort?: string;
   order?: string;
+  category?: string;
 };
 
 export type SearchProps = {

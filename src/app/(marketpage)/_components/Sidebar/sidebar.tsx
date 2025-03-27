@@ -6,17 +6,19 @@ import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { debounce, omit } from "lodash";
 import useSidebarController from "../../hooks/useSidebarController";
 import { useAppSelector } from "@/src/store/hooks";
+import { customDebounce } from "@/src/utils/common";
 import "./sidebar.scss";
 
 const { Option } = Select;
 
-const Sidebar = () => {
+const Sidebar = ({ isShowCategory }: { isShowCategory?: boolean }) => {
   const {
     handleChange,
     handleChangeSidebar,
     handleResetFilter,
     handleClickSearchButton,
     handleChangeSlider,
+    handleChangeCategory,
   } = useSidebarController();
   const inputRef = useRef<InputRef>(null);
   const criteria = useAppSelector((state) => state.market.criteria);
@@ -26,8 +28,8 @@ const Sidebar = () => {
     theme: "Halloween",
     time: "Latest",
     priceSort: "Low",
-    sort: "",
-    order: "",
+    sort: "createdAt",
+    order: "asc",
   });
 
   const isDisableSearchButton = useMemo(() => {
@@ -35,6 +37,11 @@ const Sidebar = () => {
       (field) => !field
     );
   }, [criteria]);
+
+  const debounceFilterPrice = useMemo(() => {
+    const debounced = customDebounce(handleChangeSlider, 500);
+    return debounced;
+  }, []);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -44,7 +51,9 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="sidebar md:w-[200px] xl:w-[250px] 2xl:w-[372px]">
+    <div
+      className={`sidebar w-[200px] md:w-[250px] xl:w-[300px] 2xl:w-[372px] lg:pr-5 lg:block xl:pr-10`}
+    >
       {/* Quick Search */}
       <Input
         placeholder="Quick search"
@@ -58,6 +67,20 @@ const Sidebar = () => {
         ref={inputRef}
       />
 
+      {isShowCategory && (
+        <Input
+          placeholder="Search category"
+          prefix={
+            <SearchOutlined className="search-icon" placeholder="Category" />
+          }
+          className="searchInput searchInput__category"
+          onChange={(e) => {
+            handleChangeCategory(e);
+          }}
+          ref={inputRef}
+        />
+      )}
+
       {/* Price Range Slider */}
       <div className="priceSection">
         <p className="filter-bar-title">PRICE</p>
@@ -69,7 +92,7 @@ const Sidebar = () => {
           className="slider"
           onChange={(e) => {
             setInitValue((prev) => ({ ...prev, priceSlider: e }));
-            handleChangeSlider(e);
+            debounceFilterPrice(e);
           }}
         />
         <div className="priceLabels">
@@ -158,7 +181,7 @@ const Sidebar = () => {
               handleResetFilter(defaultValue);
             }}
           ></Button>
-          <span className="text-base">Reset Filter</span>
+          <span className="text-base hidden lg:block">Reset Filter</span>
         </div>
         <Button
           type="primary"
