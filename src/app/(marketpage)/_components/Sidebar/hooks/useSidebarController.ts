@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useMarketDispatch, useMarketSelector } from "@/store/hooks";
 import {
   filterPrice,
   searchWithMultiCriteria,
@@ -11,18 +11,13 @@ import { FilterCriteriaProps, SearchProps } from "@/type/common";
 import { debounce } from "lodash";
 
 const useSidebarController = () => {
-  const dispatch = useAppDispatch();
-  const criteria = useAppSelector((state) => state.market.criteria);
+  const dispatch = useMarketDispatch();
+  const criteria = useMarketSelector((state) => state.market.criteria);
 
   const handleChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     dispatch(saveCriteria({ ...criteria, input: value }));
     dispatch(searchWithMultiCriteria({ criteria: { input: value } }));
-  }, 500);
-
-  const handleChangeCategory = debounce((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    dispatch(searchWithMultiCriteria({ criteria: { category: value } }));
   }, 500);
 
   const handleSearch = (searchCriteria: SearchProps) => {
@@ -41,7 +36,7 @@ const useSidebarController = () => {
       updatedCriteria.order = sortType > 0 ? "desc" : "asc";
       dispatch(
         searchWithSingleCriteria({
-          criteria: { ...criteria, [field]: e },
+          criteria: { ...updatedCriteria },
           type: field,
         })
       );
@@ -97,7 +92,6 @@ const useSidebarController = () => {
     handleResetFilter,
     handleClickSearchButton,
     handleChangeSlider,
-    handleChangeCategory,
   };
 };
 export default useSidebarController;

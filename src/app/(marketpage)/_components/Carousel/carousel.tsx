@@ -5,6 +5,7 @@ import NewArrival from "@/public/new-arrival.png";
 import BannerCard from "./components/card";
 import { CHARACTER_IMAGE } from "@/src/constants/common";
 import useDeviceType from "@/src/hooks/useDeviceType";
+import { getHeightAndWidth } from "@/src/utils/common";
 import "./carousel.scss";
 
 const Carousel = () => {
@@ -17,20 +18,9 @@ const Carousel = () => {
           <div className="flex items-center justify-center flex-1/2">
             <Image
               src={NewArrival}
-              width={
-                width > 1280
-                  ? 1000
-                  : width > 768
-                  ? 500
-                  : width > 640
-                  ? 400
-                  : 300
-              }
-              height={
-                width > 1280 ? 644 : width > 768 ? 300 : width > 640 ? 200 : 100
-              }
               alt="carousel"
               className="lg:min-h-auto lg:min-w-auto object-cover"
+              {...getHeightAndWidth(width, "carousel")}
             />
           </div>
           <div className="carousel__character-list w-full flex flex-1/2 h-1/3 items-center justify-center md:pt-3 lg:pt-5">
@@ -39,25 +29,8 @@ const Carousel = () => {
                 <BannerCard
                   name={char.name}
                   imageSrc={char.img}
-                  width={
-                    width > 1280
-                      ? 200
-                      : width > 768
-                      ? 120
-                      : width > 640
-                      ? 100
-                      : 80
-                  }
-                  height={
-                    width > 1280
-                      ? 224
-                      : width > 768
-                      ? 100
-                      : width > 640
-                      ? 80
-                      : 50
-                  }
                   key={char.name}
+                  {...getHeightAndWidth(width, "banner-card")}
                 />
               ))}
             </div>
@@ -67,9 +40,8 @@ const Carousel = () => {
           <Image
             src="/the-dj-character.png"
             alt="The DJ"
-            width={width > 1280 ? 400 : 300}
-            height={width > 1280 ? 600 : 400}
             className="object-cover"
+            {...getHeightAndWidth(width, "the-dj-image")}
           />
           <div className="carousel__character-name flex items-center justify-start pl-10 lg:w-[300px] lg:h-[100px] xl:w-[437px] xl:h-[170px] ">
             <span className="name lg:text-5xl xl:text-7xl">The DJ</span>

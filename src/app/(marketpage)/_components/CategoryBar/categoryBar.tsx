@@ -1,39 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
-import { useAppDispatch } from "@/store/hooks";
+import React, { ChangeEvent, useState } from "react";
+import { useMarketDispatch } from "@/store/hooks";
 import { sortCategory } from "@/store/market/marketSlice";
 import Image from "next/image";
 import { CATERGORY_LIST } from "@/src/constants/common";
-import { Button, Drawer } from "antd";
-import {
-  FilterFilled,
-  MenuUnfoldOutlined,
-  UnorderedListOutlined,
-} from "@ant-design/icons";
+import { Button, Drawer, Input } from "antd";
+import { FilterFilled, SearchOutlined } from "@ant-design/icons";
 import Sidebar from "../Sidebar/sidebar";
+import { debounce } from "lodash";
 import "./categoryBar.scss";
 
-interface FilterBarProps {
+interface CategoryBarProps {
   categories?: string[];
 }
 
-const FilterBar = ({ categories = CATERGORY_LIST }: FilterBarProps) => {
+const CategoryBar = ({ categories = CATERGORY_LIST }: CategoryBarProps) => {
   const [current, setCurrent] = useState("All");
-  const dispatch = useAppDispatch();
-  const [open, setOpen] = useState(false);
+  const dispatch = useMarketDispatch();
   const [openFilter, setOpenFilter] = useState(false);
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
   const showDrawerFilter = () => {
     setOpenFilter(true);
   };
 
-  const onClose = () => {
-    setOpen(false);
-  };
   const onCloseFilter = () => {
     setOpenFilter(false);
   };
@@ -42,16 +32,20 @@ const FilterBar = ({ categories = CATERGORY_LIST }: FilterBarProps) => {
     setCurrent(e);
     dispatch(sortCategory(e));
   };
+  const handleChangeCategory = debounce((e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(sortCategory(value));
+  }, 500);
 
   return (
-    <div className="category-bar">
-      <div className="items-center space-x-2 overflow-x-auto w-full gap-3 h-[50px] hidden md:flex">
+    <div className="category-bar w-full flex items-center justify-end md:justify-start">
+      <div className="w-full overflow-x-auto items-center justify-start space-x-2 gap-2 h-[50px] hidden md:flex">
         {categories.map((category: string) => {
           const isSortButton = category === "Sort";
           return (
             <button
               key={category}
-              className={`filter-button h-full px-4 py-2 text-white font-semibold rounded-lg transition-all whitespace-nowrap ${
+              className={`filter-button h-full px-4 py-2 text-white font-semibold rounded-lg whitespace-nowrap ${
                 current === category ? "selected" : ""
               } ${isSortButton ? "sort" : ""}`}
               onClick={() => onClick(category)}
@@ -60,8 +54,8 @@ const FilterBar = ({ categories = CATERGORY_LIST }: FilterBarProps) => {
                 <Image
                   src="/arrow-drop-down.svg"
                   alt="sort arrow"
-                  width={30}
-                  height={30}
+                  width={50}
+                  height={50}
                 />
               ) : (
                 category
@@ -70,23 +64,34 @@ const FilterBar = ({ categories = CATERGORY_LIST }: FilterBarProps) => {
           );
         })}
       </div>
-      <div className="flex justify-between items-center md:hidden">
+      <div className="flex justify-between items-center gap-5 md:hidden">
+        <Input
+          placeholder="Category search"
+          prefix={
+            <SearchOutlined
+              className="search-icon"
+              placeholder="Quick search"
+            />
+          }
+          className="category-input"
+          onChange={handleChangeCategory}
+        />
         <Button
           icon={<FilterFilled />}
           onClick={showDrawerFilter}
           className="search__drawer-button"
         ></Button>
-        <Drawer
-          onClose={onCloseFilter}
-          open={openFilter}
-          title=""
-          className="search__drawer"
-        >
-          <Sidebar isShowCategory />
-        </Drawer>
       </div>
+      <Drawer
+        onClose={onCloseFilter}
+        open={openFilter}
+        title=""
+        className="search__drawer"
+      >
+        <Sidebar />
+      </Drawer>
     </div>
   );
 };
 
-export default FilterBar;
+export default CategoryBar;

@@ -16,13 +16,33 @@ export const customDebounce = <T extends (...args: any[]) => void>(
   let timeout: ReturnType<typeof setTimeout> | null = null;
   return function (...args: Parameters<T>) {
     if (timeout) {
-      console.log("clear");
       clearTimeout(timeout);
     }
     timeout = setTimeout(() => {
-      console.log(args);
       fn(...args);
     }, t);
-    console.log(timeout);
   };
+};
+
+export const getHeightAndWidth = (screenWidth: number, type: string) => {
+  switch (type) {
+    case "carousel": {
+      if (screenWidth > 1280) return { width: 1000, height: 644 };
+      if (screenWidth > 768) return { width: 500, height: 300 };
+      if (screenWidth > 640) return { width: 400, height: 200 };
+      return { width: 300, height: 100 };
+    }
+    case "banner-card": {
+      if (screenWidth > 1280) return { width: 200, height: 224 };
+      if (screenWidth > 768) return { width: 120, height: 100 };
+      if (screenWidth > 640) return { width: 100, height: 80 };
+      return { width: 80, height: 50 };
+    }
+    case "the-dj-image": {
+      if (screenWidth > 1280) return { width: 400, height: 600 };
+      return { width: 300, height: 400 };
+    }
+    default:
+      break;
+  }
 };

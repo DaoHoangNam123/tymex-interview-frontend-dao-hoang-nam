@@ -41,7 +41,6 @@ const SkeletonCard = () => {
 
 const SkeletonList = ({ colums }: { colums: number }) => {
   const data = Array.from({ length: 20 }, (_, i) => <SkeletonCard key={i} />);
-  console.log(colums);
   return (
     <List
       itemLayout="horizontal"

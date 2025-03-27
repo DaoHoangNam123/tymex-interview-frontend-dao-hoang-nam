@@ -51,7 +51,7 @@ export async function getNFTCardsWithCriteria({ criteria }: SearchProps) {
   }
 
   if (category) {
-    url = url.concat(`&category_like=${theme}`);
+    url = url.concat(`&category_like=${category}`);
   }
 
   if (sort) {

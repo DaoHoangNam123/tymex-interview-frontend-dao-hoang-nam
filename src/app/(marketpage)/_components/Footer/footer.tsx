@@ -3,11 +3,12 @@
 import { Input, Button } from "antd";
 import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import "./footer.scss";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-8 px-20 w-full h-[552px]">
-      <div className="w-full grid md:grid-cols-3 gap-8 py-15">
+    <footer className="bg-black text-white py-8 px-10 sm:px-20 w-full h-full">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-5 lg:py-10 xl:py-15">
         {/* Navigation Links */}
         <div className="text-left">
           <h3 className="text-lg font-bold mb-8">NAVIGATION</h3>
@@ -25,11 +26,11 @@ const Footer = () => {
         </div>
 
         {/* Contact Information */}
-        <div className="text-left flex items-center justify-center">
+        <div className="text-left flex items-center justify-start md:justify-center">
           <div>
             <h3 className="text-lg font-bold mb-8">CONTACT US</h3>
             <ul className="space-y-3">
-              <li className="flex items-center mb-8">
+              <li className="flex items-center">
                 <PhoneOutlined className="mr-2" />
                 01234568910
               </li>
@@ -66,7 +67,7 @@ const Footer = () => {
       <hr className="my-6 border-gray-700" />
 
       {/* Footer Bottom */}
-      <div className="w-full flex justify-between items-center text-gray-400 text-sm">
+      <div className="w-full flex flex-col justify-between items-center text-gray-400 text-sm sm:flex-row">
         <span>©2023 Tyme - Edit. All Rights reserved.</span>
         <div className="space-x-6">
           <Link href="/security">Security</Link>

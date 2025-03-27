@@ -65,14 +65,15 @@ const Header = () => {
           </Drawer>
         </div>
         <div className="flex justify-between items-center gap-x-4 mr-4">
-          <Button className="wallet-btn">Connect Wallet</Button>
+          <button className="wallet-btn w-[150px] h-[40px] rounded-[4px]">
+            Connect Wallet
+          </button>
           <div className="flex justify-between items-center">
             <Icon type="globe" />
             <Button
               className="globe-icon"
               type="default"
               icon={<Icon type="dropdown" />}
-              onClick={() => console.log("Globe icon clicked")}
             />
           </div>
         </div>

@@ -4,12 +4,12 @@ import { Button, List } from "antd";
 import NFTCard from "../Card/NFTCard";
 import React, { useEffect, useState } from "react";
 import { getCards } from "@/store/market/marketSlice";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useMarketDispatch, useMarketSelector } from "@/store/hooks";
 import SkeletonList from "@/components/Skeleton/skeleton";
 import { isEmpty } from "lodash";
 import { IMAGE_LIST } from "@/src/constants/common";
-import "./cardList.scss";
 import useDeviceType from "@/src/hooks/useDeviceType";
+import "./cardList.scss";
 
 const EmptyMessage = () => {
   return (
@@ -21,10 +21,12 @@ const EmptyMessage = () => {
 
 const CardList = ({ numberOfCards }: { numberOfCards: number }) => {
   const [visibleItems, setVisibleItems] = useState(numberOfCards);
-  const dispatch = useAppDispatch();
+  const dispatch = useMarketDispatch();
   const { width } = useDeviceType();
-  const cardList = useAppSelector((state) => state.market.cardList);
-  const isLoading = useAppSelector((state) => state.market.loading);
+  const cardList = useMarketSelector((state) => {
+    return state.market.cardList;
+  });
+  const isLoading = useMarketSelector((state) => state.market.loading);
 
   const handleViewMore = () => {
     setVisibleItems((prev) => prev + 20);
@@ -75,13 +77,14 @@ const CardList = ({ numberOfCards }: { numberOfCards: number }) => {
             />
           </List.Item>
         )}
+        className="pr-3"
       />
     );
   }
 
   return (
     <>
-      <div className="card-list scrollbar mt-5 xl:mt-10" key="card-list">
+      <div className="card-list scrollbar mt-[70px]" key="card-list">
         {content}
       </div>
       {visibleItems < cardList.length && (

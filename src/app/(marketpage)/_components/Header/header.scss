@@ -37,8 +37,8 @@
       ) !important;
       border: none;
       color: white;
-      width: 40px;
-      height: 40px;
+      width: 40px !important;
+      height: 40px !important;
 
       :hover {
         color: white;
@@ -87,9 +87,6 @@
 }
 
 .wallet-btn {
-  width: 160px;
-  height: 40px;
-  border-radius: 4px;
   background: linear-gradient(
     91.47deg,
     #da458f -6%,

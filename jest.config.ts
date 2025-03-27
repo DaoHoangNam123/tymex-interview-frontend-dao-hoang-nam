@@ -9,8 +9,8 @@ const config: Config = {
   preset: "ts-jest",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",
-    "\\.(css|scss)$": "identity-obj-proxy", // Mock CSS/SCSS imports
+    "^@/src/(.*)$": "<rootDir>/src/$1",
+    "\\.(css|scss)$": "identity-obj-proxy",
   },
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   collectCoverage: true,
@@ -25,7 +25,8 @@ const config: Config = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  transformIgnorePatterns: ["/node_modules/"],
+  transformIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+  moduleDirectories: ["node_modules", "<rootDir>/src"],
 };
 
 module.exports = createJestConfig(config);

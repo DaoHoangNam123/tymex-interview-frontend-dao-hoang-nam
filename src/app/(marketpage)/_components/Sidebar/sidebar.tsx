@@ -4,24 +4,23 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Input, Slider, Select, Button, InputRef } from "antd";
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { debounce, omit } from "lodash";
-import useSidebarController from "../../hooks/useSidebarController";
-import { useAppSelector } from "@/src/store/hooks";
+import useSidebarController from "./hooks/useSidebarController";
+import { useMarketSelector } from "@/src/store/hooks";
 import { customDebounce } from "@/src/utils/common";
 import "./sidebar.scss";
 
-const { Option } = Select;
+const Option = Select.Option;
 
-const Sidebar = ({ isShowCategory }: { isShowCategory?: boolean }) => {
+const Sidebar = () => {
   const {
     handleChange,
     handleChangeSidebar,
     handleResetFilter,
     handleClickSearchButton,
     handleChangeSlider,
-    handleChangeCategory,
   } = useSidebarController();
   const inputRef = useRef<InputRef>(null);
-  const criteria = useAppSelector((state) => state.market.criteria);
+  const criteria = useMarketSelector((state) => state.market.criteria);
   const [initValue, setInitValue] = useState({
     priceSlider: [0.01, 200],
     tier: "All",
@@ -52,34 +51,18 @@ const Sidebar = ({ isShowCategory }: { isShowCategory?: boolean }) => {
 
   return (
     <div
-      className={`sidebar w-[200px] md:w-[250px] xl:w-[300px] 2xl:w-[372px] lg:pr-5 lg:block xl:pr-10`}
+      className={`sidebar w-[200px] lg:w-[250px] xl:w-[300px] 2xl:w-[372px] lg:pr-5 lg:block xl:pr-10`}
     >
       {/* Quick Search */}
       <Input
         placeholder="Quick search"
-        prefix={
-          <SearchOutlined className="search-icon" placeholder="Quick search" />
-        }
+        prefix={<SearchOutlined className="search-icon" />}
         className="searchInput"
         onChange={(e) => {
           handleChange(e);
         }}
         ref={inputRef}
       />
-
-      {isShowCategory && (
-        <Input
-          placeholder="Search category"
-          prefix={
-            <SearchOutlined className="search-icon" placeholder="Category" />
-          }
-          className="searchInput searchInput__category"
-          onChange={(e) => {
-            handleChangeCategory(e);
-          }}
-          ref={inputRef}
-        />
-      )}
 
       {/* Price Range Slider */}
       <div className="priceSection">
