@@ -28,18 +28,21 @@ export const getHeightAndWidth = (screenWidth: number, type: string) => {
   switch (type) {
     case "carousel": {
       if (screenWidth > 1280) return { width: 1000, height: 644 };
+      if (screenWidth > 1000) return { width: 650, height: 400 };
       if (screenWidth > 768) return { width: 500, height: 300 };
       if (screenWidth > 640) return { width: 400, height: 200 };
       return { width: 300, height: 100 };
     }
     case "banner-card": {
       if (screenWidth > 1280) return { width: 200, height: 224 };
+      if (screenWidth > 1000) return { width: 160, height: 180 };
       if (screenWidth > 768) return { width: 120, height: 100 };
       if (screenWidth > 640) return { width: 100, height: 80 };
       return { width: 80, height: 50 };
     }
     case "the-dj-image": {
       if (screenWidth > 1280) return { width: 400, height: 600 };
+      if (screenWidth > 1000) return { width: 350, height: 500 };
       return { width: 300, height: 400 };
     }
     default:
