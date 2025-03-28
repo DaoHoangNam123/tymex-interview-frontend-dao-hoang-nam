@@ -1,14 +1,7 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import useSidebarController from "@/src/app/(marketpage)/_components/Sidebar/hooks/useSidebarController";
-import {
-  saveCriteria,
-  searchWithMultiCriteria,
-  searchWithSingleCriteria,
-  getCards,
-  filterPrice,
-  marketSlice,
-} from "@/src/store/market/marketSlice";
+import { marketSlice } from "@/src/store/market/marketSlice";
 import { RootState } from "@/src/store/store";
 import "@testing-library/jest-dom";
 import { useMarketSelector, useMarketDispatch } from "@/store/hooks";
@@ -56,7 +49,7 @@ describe("useSidebarController Hook", () => {
     store = createMockStore(mockState);
     (useMarketSelector as unknown as jest.Mock).mockReturnValue({
       ...mockCriteria,
-      input: "aaaa",
+      input: "test",
       sort: "time",
       order: "asc",
     });

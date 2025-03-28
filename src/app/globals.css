@@ -76,6 +76,7 @@ h1 {
 }
 
 @layer utilities {
+  /* Scroll bar for card list */
   .scrollbar::-webkit-scrollbar {
     width: 4px;
     height: 4px !important;
@@ -92,6 +93,28 @@ h1 {
   }
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 204, 33, 1);
+  }
+
+  /* Scroll bar for category list */
+  .scrollbar-category::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    padding-top: 5px;
+    background: black;
+    cursor: grab;
+  }
+  .scrollbar-category::-webkit-scrollbar-track {
+    background: black;
+    border-radius: 10px;
+  }
+  .scrollbar-category::-webkit-scrollbar-thumb {
+    height: 5px;
+    background: black;
+    border-radius: 10px;
+  }
+  .scrollbar-category::-webkit-scrollbar-thumb:hover {
+    height: 6px;
+    background: rgba(119, 119, 119, 1);
   }
 }
 

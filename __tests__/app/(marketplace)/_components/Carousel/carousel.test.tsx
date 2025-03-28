@@ -14,7 +14,7 @@ describe("Carousel Component", () => {
     mockUseDeviceType.mockReset();
   });
 
-  test("renders images correctly based on device width (large screen)", () => {
+  test("renders images based on device large width", () => {
     mockUseDeviceType.mockReturnValue({ deviceType: "desktop", width: 1380 });
 
     render(<Carousel />);
@@ -30,7 +30,7 @@ describe("Carousel Component", () => {
     });
   });
 
-  test("renders images correctly for smaller screen", () => {
+  test("renders images for smaller screen", () => {
     mockUseDeviceType.mockReturnValue({ deviceType: "mobile", width: 740 });
 
     render(<Carousel />);
@@ -56,7 +56,7 @@ describe("Carousel Component", () => {
     expect(djImage).toHaveAttribute("height", "600");
   });
 
-  test("renders BannerCard components correctly", () => {
+  test("renders BannerCard components", () => {
     mockUseDeviceType.mockReturnValue({ deviceType: "desktop", width: 1536 });
 
     render(<Carousel />);
@@ -67,7 +67,7 @@ describe("Carousel Component", () => {
     });
   });
 
-  test("displays character names correctly", () => {
+  test("displays character names", () => {
     mockUseDeviceType.mockReturnValue({ deviceType: "desktop", width: 1536 });
 
     render(<Carousel />);

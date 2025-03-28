@@ -66,7 +66,7 @@ describe("Categorybar", () => {
     });
   });
 
-  it("dispatches the correct action when a category is clicked", async () => {
+  it("dispatches action when category is clicked", async () => {
     render(<Categorybar />);
 
     const category = CATERGORY_LIST[0];
@@ -79,7 +79,7 @@ describe("Categorybar", () => {
     });
   });
 
-  it("sets the correct class for the selected category", async () => {
+  it("set selected class for the selected category", async () => {
     render(<Categorybar />);
 
     const category = CATERGORY_LIST[0];
@@ -90,7 +90,7 @@ describe("Categorybar", () => {
     expect(categoryButton).toHaveClass("selected");
   });
 
-  it("opens the filter drawer", async () => {
+  it("open the filter drawer", async () => {
     global.innerWidth = 375;
     global.dispatchEvent(new Event("resize"));
 

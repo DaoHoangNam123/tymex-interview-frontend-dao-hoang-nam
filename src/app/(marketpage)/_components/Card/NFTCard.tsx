@@ -6,15 +6,13 @@ import { HeartFilled } from "@ant-design/icons";
 import Image from "next/image";
 import { NFTCardProps } from "@/type/common";
 import { CARD_TYPE } from "@/src/constants/common";
+import { customLoader } from "@/src/utils/common";
 import "./styles/NFTCard.scss";
 
 export default function NFTCard({ imageList, card }: Readonly<NFTCardProps>) {
   const { category, imageId, title, price, author, isFavorite } = card;
   const authorName = author.firstName.concat("_", author.lastName);
   const cardType = !CARD_TYPE.includes(category) ? "Common" : category;
-  const customLoader = ({ src }: { src: string }) => {
-    return src;
-  };
 
   return (
     <Card className="nft-card relative p-4 h-[365px] w-[267px] shadow-xl text-white">

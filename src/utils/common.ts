@@ -57,3 +57,7 @@ export const getColumns = (screenWidth: number) => {
 export const getFirstChar = (text: string) => {
   return text.substring(0, 1);
 };
+
+export const customLoader = ({ src }: { src: string }) => {
+  return src;
+};

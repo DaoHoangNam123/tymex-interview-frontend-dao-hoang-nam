@@ -24,7 +24,7 @@ jest.mock("@/src/app/(marketpage)/_components/CardList/cardList", () => ({
 }));
 
 describe("MainContent Component", () => {
-  it("renders Category Component", async () => {
+  it("show Category Component", async () => {
     await act(async () => {
       render(
         <Suspense fallback={<div>Loading...</div>}>

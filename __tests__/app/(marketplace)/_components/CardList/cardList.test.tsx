@@ -27,7 +27,7 @@ const createMockStore = (preloadedState: Partial<RootState>) => {
 };
 
 describe("CardList Component", () => {
-  test("Loading skeleton when loading", async () => {
+  test("show skeleton when loading", async () => {
     const mockStore = createMockStore({
       market: {
         cardList: [],
@@ -55,7 +55,7 @@ describe("CardList Component", () => {
     expect(await screen.findByText("Mocked skeleton")).toBeInTheDocument();
   });
 
-  test("displays 'No card found' when there are no cards", async () => {
+  test("show 'No card found' when there are no cards", async () => {
     const mockStore = createMockStore({
       market: {
         cardList: [],

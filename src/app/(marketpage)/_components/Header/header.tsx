@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className="header w-full text-white pt-8 pb-8 h-[84px]">
+    <header className="header w-full h-full text-white pt-8 pb-8">
       <main className="w-full h-[40px] flex items-center justify-between px-4">
         <div className="hidden xl:flex flex-1 items-center justify-around">
           <Menu

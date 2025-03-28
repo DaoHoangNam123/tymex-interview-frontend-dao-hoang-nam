@@ -31,23 +31,17 @@ describe("NFTCard Component", () => {
   it("renders the card with all details", () => {
     render(<NFTCard {...mockProps} />);
 
-    // Check if title is displayed
     expect(screen.getByText("Epic NFT")).toBeInTheDocument();
 
-    // Check if price is displayed correctly
     expect(screen.getByText("2.5 ETH")).toBeInTheDocument();
 
-    // Check if author's full name is displayed
     expect(screen.getByText("John_Doe")).toBeInTheDocument();
 
-    // Check if the category is displayed
     expect(screen.getByText("Epic")).toBeInTheDocument();
 
-    // Check if the favorite heart has the correct color
     const favoriteHeart = screen.getByRole("button");
     expect(favoriteHeart.firstChild).toHaveStyle("color: #E9A5F1");
 
-    // Check if the main image is displayed
     const nftImage = screen.getByAltText("nft game character");
     expect(nftImage).toBeInTheDocument();
 
@@ -55,7 +49,7 @@ describe("NFTCard Component", () => {
     expect(avatarImage).toBeInTheDocument();
   });
 
-  it("renders with default category when an invalid category is provided", () => {
+  it("show default category with an invalid category", () => {
     const invalidCategoryProps = {
       ...mockProps,
       card: { ...mockProps.card, category: "Unknown" },
@@ -64,7 +58,7 @@ describe("NFTCard Component", () => {
     expect(screen.getByText("Unknown")).toBeInTheDocument();
   });
 
-  it("shows the heart in white color when not a favorite", () => {
+  it("shows the heart in white color", () => {
     const notFavoriteProps = {
       ...mockProps,
       card: { ...mockProps.card, isFavorite: false },
