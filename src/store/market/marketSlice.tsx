@@ -106,7 +106,9 @@ export const marketSlice = createSlice({
       if (category === "All") {
         newCardList = [...state.originalCardList];
       } else {
-        newCardList = newCardList.filter((card) => card.category === category);
+        newCardList = newCardList.filter(
+          (card) => card.category.toLowerCase() === category.toLowerCase()
+        );
       }
 
       state.cardList = newCardList;
