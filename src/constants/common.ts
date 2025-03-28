@@ -54,3 +54,10 @@ export const CHARACTER_IMAGE = [
   { name: "MAFIA ENGLAND", img: "/mafia-england.png" },
   { name: "BASKETBALL GIRL", img: "/basketball-girl.png" },
 ];
+
+export const DEBOUNCE_TIME = 500;
+
+export const ORDER = {
+  ASC: "asc",
+  DESC: "desc",
+};

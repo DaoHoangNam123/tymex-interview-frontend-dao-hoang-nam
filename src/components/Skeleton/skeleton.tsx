@@ -41,11 +41,10 @@ const SkeletonCard = () => {
 
 const SkeletonList = ({ colums }: { colums: number }) => {
   const data = Array.from({ length: 20 }, (_, i) => <SkeletonCard key={i} />);
-  console.log(data);
   return (
     <List
       itemLayout="horizontal"
-      grid={{ gutter: 16, column: 4 }}
+      grid={{ gutter: 16, column: colums }}
       dataSource={data}
       renderItem={(item) => <List.Item>{item}</List.Item>}
     />

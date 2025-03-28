@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:coverage": "jest --coverage --config jest.config.ts"
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
@@ -24,6 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
+    "redux-mock-store": "^1.5.5",
     "sass": "^1.86.0"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/redux-mock-store": "^1.5.0",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
     "jest": "^29.7.0",

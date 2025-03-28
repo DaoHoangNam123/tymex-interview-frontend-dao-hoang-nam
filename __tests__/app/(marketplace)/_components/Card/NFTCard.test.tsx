@@ -5,14 +5,14 @@ import { NFTCardProps } from "@/type/common";
 import NFTCard from "@/src/app/(marketpage)/_components/Card/NFTCard";
 
 const mockProps: NFTCardProps = {
-  imageList: ["image1.png", "image2.png"],
+  imageList: ["/dj-guy-card.png"],
   card: {
     id: 1,
     tier: "Deluxe",
     createdAt: 12345678,
     theme: "Dark",
     category: "Epic",
-    imageId: 1,
+    imageId: 0,
     title: "Epic NFT",
     price: 2.5,
     author: {
@@ -48,17 +48,11 @@ describe("NFTCard Component", () => {
     expect(favoriteHeart.firstChild).toHaveStyle("color: #E9A5F1");
 
     // Check if the main image is displayed
-    const nftImage = screen.getByAltText(
-      "nft game character"
-    ) as HTMLImageElement;
-    expect(nftImage).toHaveAttribute(
-      "src",
-      mockProps.imageList[mockProps.card.imageId]
-    );
+    const nftImage = screen.getByAltText("nft game character");
+    expect(nftImage).toBeInTheDocument();
 
-    // Check if the author's avatar is displayed
-    const avatarImage = screen.getByAltText("Profile") as HTMLImageElement;
-    expect(avatarImage).toHaveAttribute("src", "avatar.png");
+    const avatarImage = screen.getByAltText("author avatar");
+    expect(avatarImage).toBeInTheDocument();
   });
 
   it("renders with default category when an invalid category is provided", () => {

@@ -1,22 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CardProps, SearchProps } from "@/type/common";
+import { CardProps, FilterCriteriaProps, SearchProps } from "@/type/common";
 import {
   getNFTCards,
   getNFTCardsWithCriteria,
   getNFTCardsWithSingleCriteria,
 } from "@/services/marketService";
+import { getFirstChar } from "@/src/utils/common";
+import { ORDER } from "@/src/constants/common";
 
 const SLICE_NAME = "market";
+
+const defaultFilterValue = {
+  priceSlider: [0.01, 200],
+  tier: "All",
+  theme: "Halloween",
+  time: "Latest",
+  priceSort: "Low",
+  input: "",
+  sort: "",
+  order: "",
+};
 
 type MarketProps = {
   cardList: CardProps[];
   originalCardList: CardProps[];
   loading: boolean;
+  criteria: FilterCriteriaProps;
 };
+
 const initialState: MarketProps = {
   cardList: [],
   originalCardList: [],
   loading: true,
+  criteria: defaultFilterValue,
 };
 
 export const getCards = createAsyncThunk<CardProps[]>(
@@ -42,13 +58,13 @@ export const searchWithMultiCriteria = createAsyncThunk<
 
 export const searchWithSingleCriteria = createAsyncThunk<
   CardProps[],
-  SearchProps
+  SearchProps & { type: string }
 >(
   SLICE_NAME + "/searchNFTCardsWithCriteria",
-  async (params: SearchProps): Promise<CardProps[]> => {
+  async (params): Promise<CardProps[]> => {
     const response = await getNFTCardsWithSingleCriteria(params);
 
-    return response as CardProps[];
+    return response.data as CardProps[];
   }
 );
 
@@ -58,24 +74,31 @@ export const marketSlice = createSlice({
   reducers: {
     filterPrice: (state, action) => {
       const [minPrice, maxPrice] = action.payload;
-
       let newCardList = [...state.originalCardList];
       newCardList = newCardList.filter((item) => item.price >= minPrice);
       newCardList = newCardList.filter((item) => item.price <= maxPrice);
 
       state.cardList = newCardList;
     },
-    sortPrice: (state, action) => {
+    saveCriteria: (state, action) => {
       const sortCriteria = action.payload;
-
-      let newCardList = [...state.cardList];
-      newCardList = newCardList.sort(
-        (a, b) => sortCriteria * (b.price - a.price)
-      );
-
-      state.cardList = newCardList;
+      state.criteria = sortCriteria;
     },
     sortCategory: (state, action) => {
+      const order = action.payload;
+      const newCardList = [...state.originalCardList];
+      newCardList.sort((a, b) => {
+        const firstCharA = getFirstChar(a.category);
+        const firstCharB = getFirstChar(b.category);
+        if (order === ORDER.ASC) {
+          return firstCharA.localeCompare(firstCharB);
+        }
+        return firstCharB.localeCompare(firstCharA);
+      });
+      console.log(newCardList);
+      state.cardList = newCardList;
+    },
+    filterCategory: (state, action) => {
       const category = action.payload;
 
       let newCardList = [...state.originalCardList];
@@ -110,5 +133,6 @@ export const marketSlice = createSlice({
       });
   },
 });
-export const { filterPrice, sortPrice, sortCategory } = marketSlice.actions;
+export const { filterPrice, filterCategory, saveCriteria, sortCategory } =
+  marketSlice.actions;
 export default marketSlice.reducer;

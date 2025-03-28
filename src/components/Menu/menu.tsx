@@ -27,7 +27,7 @@ const NavbarMenu = ({
     <Menu
       onClick={onClick}
       selectedKeys={[current]}
-      mode="horizontal"
+      mode={"horizontal"}
       items={items}
       theme="dark"
       className={className}
