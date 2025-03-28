@@ -3,7 +3,7 @@
 import { Input, Button } from "antd";
 import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import "./footer.scss";
+import "./styles/footer.scss";
 
 const Footer = () => {
   return (

@@ -7,7 +7,7 @@ import { debounce, omit } from "lodash";
 import useSidebarController from "./hooks/useSidebarController";
 import { useMarketSelector } from "@/src/store/hooks";
 import { customDebounce } from "@/src/utils/common";
-import "./sidebar.scss";
+import "./styles/sidebar.scss";
 
 const Option = Select.Option;
 

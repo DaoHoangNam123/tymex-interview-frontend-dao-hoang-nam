@@ -11,7 +11,7 @@ import { IMAGE_LIST } from "@/src/constants/common";
 import useDeviceType from "@/src/hooks/useDeviceType";
 import { loading, marketCardList } from "@/src/store/market/marketSelector";
 import { getColumns } from "@/src/utils/common";
-import "./cardList.scss";
+import "./styles/cardList.scss";
 
 const EmptyMessage = () => {
   return (

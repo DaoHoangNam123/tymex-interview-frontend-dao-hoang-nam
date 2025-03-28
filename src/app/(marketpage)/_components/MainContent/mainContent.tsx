@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { lazy } from "react";
-import "./mainContent.scss";
+import "./styles/mainContent.scss";
 
 const Category = lazy(() => import("../CategoryBar/categoryBar"));
 const Sidebar = lazy(() => import("../Sidebar/sidebar"));
