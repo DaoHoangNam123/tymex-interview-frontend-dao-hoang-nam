@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Categorybar from "@/src/app/(marketpage)/_components/CategoryBar/categoryBar";
-import { sortCategory } from "@/store/market/marketSlice";
+import { filterCategory } from "@/store/market/marketSlice";
 import { useMarketDispatch, useMarketSelector } from "@/store/hooks";
 import { CATERGORY_LIST } from "@/src/constants/common";
 
@@ -75,7 +75,7 @@ describe("Categorybar", () => {
     fireEvent.click(categoryButton);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith(sortCategory(category));
+      expect(mockDispatch).toHaveBeenCalledWith(filterCategory(category));
     });
   });
 

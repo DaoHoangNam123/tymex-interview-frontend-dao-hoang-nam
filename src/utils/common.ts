@@ -9,7 +9,7 @@ export const checkDevice = (windowSize: number | null) => {
   return { MOBILE, TABLET, DESKTOP, LARGE_SCREEN };
 };
 
-export const customDebounce = <T extends (...args: any[]) => void>(
+export const customDebounce = <T extends (...args: Parameters<T>) => void>(
   fn: T,
   t: number
 ): ((...args: Parameters<T>) => void) => {

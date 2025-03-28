@@ -86,7 +86,7 @@ export const marketSlice = createSlice({
     },
     sortCategory: (state, action) => {
       const order = action.payload;
-      let newCardList = [...state.originalCardList];
+      const newCardList = [...state.originalCardList];
       newCardList.sort((a, b) => {
         const firstCharA = getFirstChar(a.category);
         const firstCharB = getFirstChar(b.category);

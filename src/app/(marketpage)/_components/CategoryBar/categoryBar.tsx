@@ -3,7 +3,6 @@
 import React, { ChangeEvent, CSSProperties, useState } from "react";
 import { useMarketDispatch } from "@/store/hooks";
 import { filterCategory, sortCategory } from "@/store/market/marketSlice";
-import Image from "next/image";
 import { CATERGORY_LIST, DEBOUNCE_TIME, ORDER } from "@/src/constants/common";
 import { Button, Drawer, Input } from "antd";
 import {

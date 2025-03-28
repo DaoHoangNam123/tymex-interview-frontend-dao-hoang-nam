@@ -6,14 +6,15 @@ import {
   getCards,
   saveCriteria,
 } from "@/store/market/marketSlice";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { FilterCriteriaProps, SearchProps } from "@/type/common";
 import { debounce } from "lodash";
 import { DEBOUNCE_TIME } from "@/src/constants/common";
+import { getCriteria } from "@/src/store/market/marketSelector";
 
 const useSidebarController = () => {
   const dispatch = useMarketDispatch();
-  const criteria = useMarketSelector((state) => state.market.criteria);
+  const criteria = useMarketSelector(getCriteria);
 
   const handleChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -66,9 +67,12 @@ const useSidebarController = () => {
     }
   }, DEBOUNCE_TIME);
 
-  const handleChangeSlider = (e: number[]) => {
-    dispatch(filterPrice(e));
-  };
+  const handleChangeSlider = useCallback(
+    (e: number[]) => {
+      dispatch(filterPrice(e));
+    },
+    [dispatch]
+  );
 
   const handleResetFilter = (defaultValue: FilterCriteriaProps) => {
     dispatch(saveCriteria({ ...criteria, ...defaultValue }));

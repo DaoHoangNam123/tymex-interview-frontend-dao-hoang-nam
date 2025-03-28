@@ -40,7 +40,7 @@ const Sidebar = () => {
   const debounceFilterPrice = useMemo(() => {
     const debounced = customDebounce(handleChangeSlider, 500);
     return debounced;
-  }, []);
+  }, [handleChangeSlider]);
 
   useEffect(() => {
     if (inputRef.current) {

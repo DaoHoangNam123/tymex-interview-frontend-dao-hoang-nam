@@ -9,7 +9,7 @@ const filterByPrice = (
   priceSlider?: number[]
 ) => {
   let newCardList = [...cardList];
-  let sortPrice = priceSort === "Low" ? -1 : 1;
+  const sortPrice = priceSort === "Low" ? -1 : 1;
 
   if (priceSort) {
     newCardList = newCardList.sort((a, b) => sortPrice * (b.price - a.price));

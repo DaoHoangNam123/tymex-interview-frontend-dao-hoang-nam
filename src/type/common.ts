@@ -25,10 +25,6 @@ export type NFTCardProps = {
   imageList: string[];
 };
 
-export type GetCardsResponse = {
-  data: any[];
-};
-
 export type FilterCriteriaProps = {
   priceSlider?: number[];
   tier?: string;
@@ -44,9 +40,3 @@ export type FilterCriteriaProps = {
 export type SearchProps = {
   criteria: FilterCriteriaProps;
 };
-
-export interface HandleChangeSidebarEvent {
-  target: {
-    value: any;
-  };
-}
