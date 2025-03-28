@@ -6,7 +6,7 @@ import BannerCard from "./components/card";
 import { CHARACTER_IMAGE } from "@/src/constants/common";
 import useDeviceType from "@/src/hooks/useDeviceType";
 import { getHeightAndWidth } from "@/src/utils/common";
-import "./carousel.scss";
+import "./styles/carousel.scss";
 
 const Carousel = () => {
   const { width } = useDeviceType();

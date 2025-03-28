@@ -6,7 +6,7 @@ import { HeartFilled } from "@ant-design/icons";
 import Image from "next/image";
 import { NFTCardProps } from "@/type/common";
 import { CARD_TYPE } from "@/src/constants/common";
-import "./NFTCard.scss";
+import "./styles/NFTCard.scss";
 
 export default function NFTCard({ imageList, card }: Readonly<NFTCardProps>) {
   const { category, imageId, title, price, author, isFavorite } = card;

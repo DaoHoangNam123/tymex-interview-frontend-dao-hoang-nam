@@ -5,7 +5,7 @@ import { Button, Drawer, Menu, MenuProps } from "antd";
 import Icon from "@/components/Icon/icon";
 import { HEADER_MENU } from "@/src/constants/common";
 import { MenuOutlined } from "@ant-design/icons";
-import "./header.scss";
+import "./styles/header.scss";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
