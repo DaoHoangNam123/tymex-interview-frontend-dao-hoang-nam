@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 import Sidebar from "../Sidebar/sidebar";
 import { debounce } from "lodash";
-import "./categoryBar.scss";
+import "./styles/categoryBar.scss";
 
 type CategoryBarProps = {
   categories?: string[];
