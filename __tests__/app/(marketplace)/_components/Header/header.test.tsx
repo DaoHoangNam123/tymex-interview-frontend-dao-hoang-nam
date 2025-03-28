@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import { HEADER_MENU } from "@/src/constants/common";
 
 describe("Header Component", () => {
-  it("renders navigation menu on larger screens", () => {
+  it("renders navigation menu", () => {
     render(<Header />);
     HEADER_MENU.forEach((item) => {
       expect(screen.getByText(item.label)).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe("Header Component", () => {
     expect(screen.getByText("Connect Wallet")).toBeInTheDocument();
   });
 
-  it("opens and closes the drawer menu on mobile view", () => {
+  it("opens and closes the drawer menu", () => {
     render(<Header />);
     const menuButton = screen.getByRole("button", { name: "menu" });
     waitFor(() => {

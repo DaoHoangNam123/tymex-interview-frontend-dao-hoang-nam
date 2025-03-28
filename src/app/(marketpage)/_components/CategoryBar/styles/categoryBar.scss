@@ -3,10 +3,14 @@
   gap: 20px;
   top: 0;
   left: 0;
-}
 
-.category-bar::-webkit-scrollbar {
-  display: none;
+  &__container {
+    scroll-behavior: smooth;
+    overflow-y: hidden;
+    overflow-x: auto;
+    -ms-overflow-x: auto;
+    -ms-overflow-y: hidden;
+  }
 }
 
 .ant-drawer-content.search__drawer {
@@ -18,6 +22,7 @@
 
 .search__drawer {
   &-button {
+    cursor: pointer;
     background: linear-gradient(
       91.47deg,
       #da458f -6%,
@@ -35,6 +40,7 @@
 }
 
 .filter-button {
+  cursor: pointer;
   background: linear-gradient(
     91.47deg,
     rgba(218, 69, 143, 0.4) -6%,

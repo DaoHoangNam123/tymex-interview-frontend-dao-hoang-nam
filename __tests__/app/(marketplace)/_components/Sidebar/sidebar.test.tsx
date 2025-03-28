@@ -40,18 +40,18 @@ describe("Sidebar Component", () => {
       </Provider>
     );
 
-  it("renders quick search input", () => {
+  it("show quick search input", () => {
     renderComponent();
     expect(screen.getByPlaceholderText("Quick search")).toBeInTheDocument();
   });
 
-  it("renders price range slider", () => {
+  it("show price range slider", () => {
     renderComponent();
     const sliderElement = screen.getAllByText("PRICE")[0];
     expect(sliderElement).toBeInTheDocument();
   });
 
-  it("renders dropdown filters", () => {
+  it("show dropdown filters", () => {
     renderComponent();
     const priceSortElement = screen.getAllByText("PRICE")[1];
     expect(screen.getByText("TIER")).toBeInTheDocument();
@@ -60,12 +60,12 @@ describe("Sidebar Component", () => {
     expect(priceSortElement).toBeInTheDocument();
   });
 
-  it("renders reset and search buttons", () => {
+  it("show search buttons", () => {
     renderComponent();
     expect(screen.getByRole("button", { name: "Search" })).toBeInTheDocument();
   });
 
-  it("updates state when quick search input changes", () => {
+  it("updates quick search input changes", () => {
     renderComponent();
     const input = screen.getByPlaceholderText("Quick search");
     fireEvent.change(input, { target: { value: "test" } });

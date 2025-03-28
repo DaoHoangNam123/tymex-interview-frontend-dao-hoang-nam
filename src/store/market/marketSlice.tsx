@@ -95,7 +95,6 @@ export const marketSlice = createSlice({
         }
         return firstCharB.localeCompare(firstCharA);
       });
-      console.log(newCardList);
       state.cardList = newCardList;
     },
     filterCategory: (state, action) => {

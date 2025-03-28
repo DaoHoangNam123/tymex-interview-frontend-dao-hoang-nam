@@ -63,14 +63,14 @@ const CategoryBar = ({ categories = CATERGORY_LIST }: CategoryBarProps) => {
   }, DEBOUNCE_TIME);
 
   return (
-    <div className="category-bar w-full flex items-center justify-end md:justify-start">
-      <div className="w-full overflow-x-auto items-center justify-start space-x-2 gap-2 h-[50px] pr-5 hidden md:flex">
+    <div className="category-bar w-full flex items-center justify-center">
+      <div className="category-bar__container scrollbar-category h-full justify-end md:justify-start space-x-2 gap-2 pr-5 hidden md:flex">
         {categories.map((category: string) => {
           const isSortButton = category === "Sort";
           return (
             <button
               key={category}
-              className={`filter-button h-full px-4 py-2 text-white font-semibold rounded-lg whitespace-nowrap ${
+              className={`filter-button h-[50px] px-4 py-2 text-white font-semibold rounded-lg whitespace-nowrap ${
                 current === category ? "selected" : ""
               } ${isSortButton ? "sort" : ""}`}
               onClick={() => onClick(category)}
