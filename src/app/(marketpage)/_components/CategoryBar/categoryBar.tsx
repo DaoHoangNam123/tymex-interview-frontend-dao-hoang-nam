@@ -1,24 +1,43 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, CSSProperties, useState } from "react";
 import { useMarketDispatch } from "@/store/hooks";
-import { sortCategory } from "@/store/market/marketSlice";
+import { filterCategory, sortCategory } from "@/store/market/marketSlice";
 import Image from "next/image";
-import { CATERGORY_LIST } from "@/src/constants/common";
+import { CATERGORY_LIST, DEBOUNCE_TIME, ORDER } from "@/src/constants/common";
 import { Button, Drawer, Input } from "antd";
-import { FilterFilled, SearchOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  FilterFilled,
+  SearchOutlined,
+  UpOutlined,
+} from "@ant-design/icons";
 import Sidebar from "../Sidebar/sidebar";
 import { debounce } from "lodash";
 import "./categoryBar.scss";
 
-interface CategoryBarProps {
+type CategoryBarProps = {
   categories?: string[];
-}
+};
 
+type SortButtonProps = {
+  order: string;
+  width: number;
+  height: number;
+  style: CSSProperties;
+};
+const SortButton = ({ order, ...rest }: SortButtonProps) => {
+  return order === ORDER.ASC ? (
+    <UpOutlined {...rest} />
+  ) : (
+    <DownOutlined {...rest} />
+  );
+};
 const CategoryBar = ({ categories = CATERGORY_LIST }: CategoryBarProps) => {
   const [current, setCurrent] = useState("All");
-  const dispatch = useMarketDispatch();
   const [openFilter, setOpenFilter] = useState(false);
+  const [orderCategory, setOrderCategory] = useState("asc");
+  const dispatch = useMarketDispatch();
 
   const showDrawerFilter = () => {
     setOpenFilter(true);
@@ -30,16 +49,23 @@ const CategoryBar = ({ categories = CATERGORY_LIST }: CategoryBarProps) => {
 
   const onClick = (e: string) => {
     setCurrent(e);
-    dispatch(sortCategory(e));
+    if (e === "Sort") {
+      const order = orderCategory === ORDER.ASC ? "desc" : "asc";
+      setOrderCategory(order);
+      dispatch(sortCategory(order));
+      return;
+    }
+    dispatch(filterCategory(e));
   };
+
   const handleChangeCategory = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    dispatch(sortCategory(value));
-  }, 500);
+    dispatch(filterCategory(value));
+  }, DEBOUNCE_TIME);
 
   return (
     <div className="category-bar w-full flex items-center justify-end md:justify-start">
-      <div className="w-full overflow-x-auto items-center justify-start space-x-2 gap-2 h-[50px] hidden md:flex">
+      <div className="w-full overflow-x-auto items-center justify-start space-x-2 gap-2 h-[50px] pr-5 hidden md:flex">
         {categories.map((category: string) => {
           const isSortButton = category === "Sort";
           return (
@@ -51,11 +77,11 @@ const CategoryBar = ({ categories = CATERGORY_LIST }: CategoryBarProps) => {
               onClick={() => onClick(category)}
             >
               {isSortButton ? (
-                <Image
-                  src="/arrow-drop-down.svg"
-                  alt="sort arrow"
+                <SortButton
+                  order={orderCategory}
                   width={50}
                   height={50}
+                  style={{ color: "rgba(218, 69, 143, 1)" }}
                 />
               ) : (
                 category

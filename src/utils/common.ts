@@ -46,3 +46,14 @@ export const getHeightAndWidth = (screenWidth: number, type: string) => {
       break;
   }
 };
+
+export const getColumns = (screenWidth: number) => {
+  if (screenWidth > 1600) return 4;
+  if (screenWidth > 1280) return 3;
+  if (screenWidth > 768) return 2;
+  return 1;
+};
+
+export const getFirstChar = (text: string) => {
+  return text.substring(0, 1);
+};

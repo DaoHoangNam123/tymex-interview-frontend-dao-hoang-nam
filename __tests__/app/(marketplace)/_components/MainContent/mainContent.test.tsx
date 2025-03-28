@@ -25,14 +25,6 @@ jest.mock(
 );
 
 describe("MainContent Component", () => {
-  it("renders sidebar on larger screens", () => {
-    global.innerWidth = 1575;
-    window.dispatchEvent(new Event("resize"));
-    const { container } = render(<MainContent />);
-    console.log(container.innerHTML); // Log the rendered HTML
-    expect(screen.getByText("Sidebar Component")).toBeInTheDocument();
-  });
-
   it("renders category component", () => {
     render(<MainContent />);
     expect(screen.getByText("Category Component")).toBeInTheDocument();

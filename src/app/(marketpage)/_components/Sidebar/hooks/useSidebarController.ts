@@ -9,6 +9,7 @@ import {
 import { ChangeEvent } from "react";
 import { FilterCriteriaProps, SearchProps } from "@/type/common";
 import { debounce } from "lodash";
+import { DEBOUNCE_TIME } from "@/src/constants/common";
 
 const useSidebarController = () => {
   const dispatch = useMarketDispatch();
@@ -18,7 +19,7 @@ const useSidebarController = () => {
     const value = e.target.value;
     dispatch(saveCriteria({ ...criteria, input: value }));
     dispatch(searchWithMultiCriteria({ criteria: { input: value } }));
-  }, 500);
+  }, DEBOUNCE_TIME);
 
   const handleSearch = (searchCriteria: SearchProps) => {
     dispatch(searchWithMultiCriteria(searchCriteria));
@@ -63,7 +64,7 @@ const useSidebarController = () => {
         })
       );
     }
-  }, 500);
+  }, DEBOUNCE_TIME);
 
   const handleChangeSlider = (e: number[]) => {
     dispatch(filterPrice(e));

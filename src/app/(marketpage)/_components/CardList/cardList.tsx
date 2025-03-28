@@ -9,6 +9,8 @@ import SkeletonList from "@/components/Skeleton/skeleton";
 import { isEmpty } from "lodash";
 import { IMAGE_LIST } from "@/src/constants/common";
 import useDeviceType from "@/src/hooks/useDeviceType";
+import { loading, marketCardList } from "@/src/store/market/marketSelector";
+import { getColumns } from "@/src/utils/common";
 import "./cardList.scss";
 
 const EmptyMessage = () => {
@@ -23,10 +25,8 @@ const CardList = ({ numberOfCards }: { numberOfCards: number }) => {
   const [visibleItems, setVisibleItems] = useState(numberOfCards);
   const dispatch = useMarketDispatch();
   const { width } = useDeviceType();
-  const cardList = useMarketSelector((state) => {
-    return state.market.cardList;
-  });
-  const isLoading = useMarketSelector((state) => state.market.loading);
+  const cardList = useMarketSelector(marketCardList);
+  const isLoading = useMarketSelector(loading);
 
   const handleViewMore = () => {
     setVisibleItems((prev) => prev + 20);
@@ -53,11 +53,7 @@ const CardList = ({ numberOfCards }: { numberOfCards: number }) => {
   let content: React.ReactNode;
 
   if (isLoading) {
-    content = (
-      <SkeletonList
-        colums={width > 1600 ? 4 : width > 1280 ? 3 : width > 768 ? 2 : 1}
-      />
-    );
+    content = <SkeletonList colums={getColumns(width)} />;
   } else if (isEmpty(cardList)) {
     content = <EmptyMessage />;
   } else {
@@ -66,7 +62,7 @@ const CardList = ({ numberOfCards }: { numberOfCards: number }) => {
         itemLayout="horizontal"
         grid={{
           gutter: 16,
-          column: width > 1600 ? 4 : width > 1280 ? 3 : width > 768 ? 2 : 1,
+          column: getColumns(width),
         }}
         dataSource={cardList.slice(0, visibleItems)}
         renderItem={(item) => (

@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { RootState } from "@/src/store/store";
 import { configureStore } from "@reduxjs/toolkit";

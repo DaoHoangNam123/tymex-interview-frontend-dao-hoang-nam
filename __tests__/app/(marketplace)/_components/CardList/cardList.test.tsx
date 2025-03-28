@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 
 jest.mock("@/src/store/market/marketSlice", () => ({
   ...jest.requireActual("@/src/store/market/marketSlice"),
-  getCards: jest.fn(() => async () => Promise.resolve([])), // Mocked implementation
+  getCards: jest.fn(() => async () => Promise.resolve([])),
 }));
 
 jest.mock("@/src/components/Skeleton/skeleton", () => {

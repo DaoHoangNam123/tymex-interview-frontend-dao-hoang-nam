@@ -5,6 +5,8 @@ import {
   getNFTCardsWithCriteria,
   getNFTCardsWithSingleCriteria,
 } from "@/services/marketService";
+import { getFirstChar } from "@/src/utils/common";
+import { ORDER } from "@/src/constants/common";
 
 const SLICE_NAME = "market";
 
@@ -83,6 +85,20 @@ export const marketSlice = createSlice({
       state.criteria = sortCriteria;
     },
     sortCategory: (state, action) => {
+      const order = action.payload;
+      let newCardList = [...state.originalCardList];
+      newCardList.sort((a, b) => {
+        const firstCharA = getFirstChar(a.category);
+        const firstCharB = getFirstChar(b.category);
+        if (order === ORDER.ASC) {
+          return firstCharA.localeCompare(firstCharB);
+        }
+        return firstCharB.localeCompare(firstCharA);
+      });
+      console.log(newCardList);
+      state.cardList = newCardList;
+    },
+    filterCategory: (state, action) => {
       const category = action.payload;
 
       let newCardList = [...state.originalCardList];
@@ -117,5 +133,6 @@ export const marketSlice = createSlice({
       });
   },
 });
-export const { filterPrice, sortCategory, saveCriteria } = marketSlice.actions;
+export const { filterPrice, filterCategory, saveCriteria, sortCategory } =
+  marketSlice.actions;
 export default marketSlice.reducer;
