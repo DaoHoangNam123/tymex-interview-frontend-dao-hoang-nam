@@ -2,13 +2,11 @@
 
 ## Problem Statement
 
-1. Search, filter, sort (depends on the JSON you define)
+1. Search, filter, sort multiple criteria
 
-2. View more (load more data if you need)
+2. View more data
 
-3. Refresh data after the 60s. (if you are FE: refresh to get JSON DATA)
-
-4. UI: You can style by yourself to achieve the requirements.
+3. Refresh data after the 60s
 
 - Layout design
 - CSS or choose a library UI
@@ -29,7 +27,7 @@ Utilities:
 **1. Clone repo**
 
 ```bash
-git clone https://github.com/DaoHoangNam123/tymex-interview-frontend-dao-hoang-nam.git && cd tymex-interview-frontend-dao-hoang-nam
+git clone https://github.com/DaoHoangNam123/tymex-interview-frontend-dao-hoang-nam.git; cd tymex-interview-frontend-dao-hoang-nam
 ```
 
 **2. Install**
@@ -40,7 +38,13 @@ npm install
 
 ## Run project
 
-> You must start the server before running the project.
+> You must start the server before running the project. Mock-server is provided in repo.
+
+```bash
+npm run start
+```
+
+> Running the project.
 
 ```bash
 npm run dev
