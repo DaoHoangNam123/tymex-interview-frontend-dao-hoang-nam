@@ -10,20 +10,20 @@ jest.mock(
 );
 
 describe("Footer Component", () => {
-  it("renders navigation links", () => {
+  it("show navigation link", () => {
     render(<Footer />);
     expect(screen.getByText("Home")).toBeInTheDocument();
     expect(screen.getByText("About us")).toBeInTheDocument();
     expect(screen.getByText("Marketplace")).toBeInTheDocument();
   });
 
-  it("renders contact information", () => {
+  it("show contact information", () => {
     render(<Footer />);
     expect(screen.getByText("01234568910")).toBeInTheDocument();
     expect(screen.getByText("tymex-talent@tyme.com")).toBeInTheDocument();
   });
 
-  it("renders subscribe section", () => {
+  it("show subscribe section", () => {
     render(<Footer />);
     expect(
       screen.getByPlaceholderText("Your email address")
@@ -31,7 +31,7 @@ describe("Footer Component", () => {
     expect(screen.getByText("Subscribe")).toBeInTheDocument();
   });
 
-  it("renders footer bottom links", () => {
+  it("show footer bottom info", () => {
     render(<Footer />);
     expect(
       screen.getByText("©2023 Tyme - Edit. All Rights reserved.")
