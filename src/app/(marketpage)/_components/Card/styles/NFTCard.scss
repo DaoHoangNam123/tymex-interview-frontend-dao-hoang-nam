@@ -1,72 +1,98 @@
+:root {
+  /* Card gradients */
+  --gradient-common: linear-gradient(90.13deg, #49dd81 0%, #22b4c6 100%);
+  --gradient-epic: linear-gradient(90.13deg, #dd5afe 0%, #6366f1 100%);
+  --gradient-mythic: linear-gradient(90.13deg, #fe5a5a 0%, #f163d2 100%);
+  --gradient-legendary: linear-gradient(90.13deg, #fe955a 0%, #f1da63 100%);
+  --gradient-rare: linear-gradient(90deg, #43a6f6 0%, #5868f3 100%);
+  
+  /* Colors */
+  --color-card-bg: #2a2936;
+  --color-category-bg: rgba(49, 59, 69, 0.5);
+  --color-favorite: #E9A5F1;
+  
+  /* Transitions */
+  --transition-hover: transform 0.2s ease;
+  
+  /* Dimensions */
+  --border-radius-card: 10px;
+  --border-radius-category: 4px;
+  --heart-size: 20px;
+}
+
 .nft-card {
   background: transparent;
   border: none !important;
-
+  
+  /* Ant Design overrides */
   &.ant-card {
     position: relative;
-    transition: transform 0.2s !important;
+    transition: var(--transition-hover) !important;
     cursor: pointer;
-
+    
     &:hover {
       transform: translateY(-0.625em) !important;
     }
-
+    
     .ant-card-body {
-      background: #2a2936;
+      background: var(--color-card-bg);
       padding: 16px !important;
       height: 100%;
-      border-radius: 10px;
+      border-radius: var(--border-radius-card);
       border: none;
     }
   }
+}
 
-  .card-image {
-    border-radius: 10px;
-
-    &.common {
-      background: linear-gradient(90.13deg, #49dd81 0%, #22b4c6 100%);
+/* Card image styles */
+.card-image {
+  border-radius: var(--border-radius-card);
+  
+  /* Card type backgrounds */
+  &.common { background: var(--gradient-common); }
+  &.epic { background: var(--gradient-epic); }
+  &.mythic { background: var(--gradient-mythic); }
+  &.legendary { background: var(--gradient-legendary); }
+  &.rare { background: var(--gradient-rare); }
+  
+  /* Category label */
+  &__category {
+    background: var(--color-category-bg);
+    border-radius: var(--border-radius-category);
+    backdrop-filter: blur(2px);
+  }
+  
+  /* Favorite button */
+  &__favorite-heart {
+    svg {
+      width: var(--heart-size);
+      height: var(--heart-size);
+      transition: transform 0.2s ease;
     }
-
-    &.epic {
-      background: linear-gradient(90.13deg, #dd5afe 0%, #6366f1 100%);
-    }
-
-    &.mythic {
-      background: linear-gradient(90.13deg, #fe5a5a 0%, #f163d2 100%);
-    }
-
-    &.legendary {
-      background: linear-gradient(90.13deg, #fe955a 0%, #f1da63 100%);
-    }
-
-    &.rare {
-      background: linear-gradient(90deg, #43a6f6 0%, #5868f3 100%);
-    }
-
-    &__category {
-      background: rgba(49, 59, 69, 0.5);
-      border-radius: 4px;
-    }
-
-    &__favorite-heart svg {
-      width: 20px;
-      height: 20px;
+    
+    &:hover svg {
+      transform: scale(1.1);
     }
   }
+}
 
-  .content-info {
-    background: transparent;
-
-    &__author-avatar {
-      position: relative;
-      border-radius: 50%;
-    }
-
-    &__status {
-      position: absolute;
-      border-radius: 50%;
-      right: 0px;
-      bottom: 0px;
-    }
+/* Content info styles */
+.content-info {
+  background: transparent;
+  
+  &__author-avatar {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  &__status {
+    position: absolute;
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

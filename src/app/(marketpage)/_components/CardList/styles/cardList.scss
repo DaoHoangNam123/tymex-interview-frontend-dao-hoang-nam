@@ -1,26 +1,58 @@
-/* CARD LIST */
+:root {
+  /* Colors */
+  --color-text-light: white;
+  --color-button-gradient-start: #da458f;
+  --color-button-gradient-end: #da34dd;
+  
+  /* Gradients */
+  --gradient-button: linear-gradient(91.47deg, var(--color-button-gradient-start) -6%, var(--color-button-gradient-end) 113.05%);
+  
+  /* Dimensions */
+  --border-radius: 4px;
+  --button-height: 70px;
+  --button-width: 326px;
+  
+  /* Spacing */
+  --spacing-top: 70px;
+  --spacing-bottom: 55px;
+  
+  /* Transitions */
+  --transition-duration: 0.3s;
+}
+
+.card-list-container {
+  position: relative;
+  width: 100%;
+}
+
 .card-list {
   overflow-x: hidden;
   scroll-behavior: smooth;
   height: fit-content;
   max-height: 2069px;
+  transition: all var(--transition-duration) ease;
 
   .ant-list-item {
     display: flex !important;
     justify-content: center !important;
   }
+}
 
-  &__view-more,
-  &__view-more:hover,
-  &__view-more:focus {
-    background: linear-gradient(
-      91.47deg,
-      #da458f -6%,
-      #da34dd 113.05%
-    ) !important;
-    border-radius: 4px;
-    border: none !important;
-    height: 70px !important;
-    color: white !important;
+.card-list__view-more {
+  background: var(--gradient-button) !important;
+  border-radius: var(--border-radius);
+  border: none !important;
+  height: var(--button-height) !important;
+  color: var(--color-text-light) !important;
+  transition: transform var(--transition-duration) ease, opacity var(--transition-duration) ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(218, 69, 143, 0.2);
   }
 }

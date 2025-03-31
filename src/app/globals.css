@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Font faces */
 @font-face {
   font-family: "droneRangerPro";
   src: url("../../assets/fonts/dronerangerpro_black.otf") format("truetype");
@@ -14,52 +15,76 @@
   font-style: normal;
 }
 
-/* Removed @theme inline block */
-
+/* Theme variables */
 :root {
-  --primary-color: #44d62c;
-  --danger-color: #c8323c;
-  --bg-color-1: #111;
-  --bg-color-2: #222;
-  --bg-color-3: #666;
-  --text-color: #ccc;
-  --border-color: #5d5d5d;
-  --border-color-2: #707070;
-  --radius: 0.5rem;
+  /* Colors */
+  --color-primary: #44d62c;
+  --color-danger: #c8323c;
+  --color-background-primary: #111;
+  --color-background-secondary: #222;
+  --color-background-tertiary: #666;
+  --color-text-primary: #ccc;
+  --color-border-primary: #5d5d5d;
+  --color-border-secondary: #707070;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  
+  /* Typography */
+  --font-family-primary: "inter", sans-serif;
+  --font-family-display: "droneRangerPro", sans-serif;
+  --font-size-base: 16px;
+  --font-size-h1: 1.25rem;
+  --line-height-h1: 1.5;
 }
 
+/* Base styles */
 html,
 body {
   background: rgba(0, 0, 0, 0.2);
-  font-family: "inter", sans-serif;
-  font-size: 16px;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
   user-select: none;
   margin: 0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-div {
   box-sizing: border-box;
 }
 
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 h1 {
-  color: var(--primary-color);
-  font-family: "droneRangerPro", sans-serif;
-  font-size: 20px;
-  line-height: 24px;
+  color: var(--color-primary);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
   font-weight: normal;
   text-transform: uppercase;
   margin: 0;
 }
 
+/* Layout components */
 .market-page__cover-header {
   position: relative;
   width: 100%;
   background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
 }
 
 .market-page__cover-header::before {
@@ -73,52 +98,61 @@ h1 {
   width: 100%;
   height: 100%;
   z-index: -1;
+  opacity: 0.8;
 }
 
+/* Custom scrollbars */
 @layer utilities {
-  /* Scroll bar for card list */
+  /* Card list scrollbar */
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 204, 33, 1) rgba(119, 119, 119, 1);
+  }
+  
   .scrollbar::-webkit-scrollbar {
     width: 4px;
-    height: 4px !important;
-    padding-left: 4px;
+    height: 4px;
   }
+  
   .scrollbar::-webkit-scrollbar-track {
     background: rgba(119, 119, 119, 1);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
   }
+  
   .scrollbar::-webkit-scrollbar-thumb {
-    height: 4px !important;
     background: rgba(255, 204, 33, 1);
-    border-radius: 10px;
-  }
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 204, 33, 1);
+    border-radius: var(--radius-sm);
   }
 
-  /* Scroll bar for category list */
+  /* Category list scrollbar */
+  .scrollbar-category {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(119, 119, 119, 1) black;
+  }
+  
   .scrollbar-category::-webkit-scrollbar {
     width: 5px;
     height: 5px;
-    padding-top: 5px;
     background: black;
-    cursor: grab;
   }
+  
   .scrollbar-category::-webkit-scrollbar-track {
     background: black;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
   }
+  
   .scrollbar-category::-webkit-scrollbar-thumb {
-    height: 5px;
     background: black;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
   }
+  
   .scrollbar-category::-webkit-scrollbar-thumb:hover {
-    height: 6px;
     background: rgba(119, 119, 119, 1);
   }
 }
 
-/* styles.css */
+/* Loading spinner */
 .spinner-wrapper {
   background-image: url("../../public/background.png");
   width: 100vw;
@@ -126,10 +160,14 @@ h1 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: gray;
+  border-left-color: var(--color-primary);
   border-radius: 50%;
   width: 24px;
   height: 24px;
